@@ -19,11 +19,11 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    _getMyPage();
+    _getVideoList();
   }
 
-  _getMyPage() async {
-    showLoading(content: '');
+  _getVideoList() async {
+    showLoading();
     var _userRepo = Get.find<UserRepo>();
     var res = await _userRepo.getMyPage();
     hideLoading();

@@ -1,6 +1,8 @@
 const BASE_URL = 'base_url';
 const BEARER = "Bearer";
 const AUTHORIZATION = "Authorization";
+const ACCEPT = "ACCEPT";
+const CONTENT = "application/json";
 const CONTENT_TYPE = "application/json; charset=utf-8";
 
 const MAX_TIME_OUT = 20;
