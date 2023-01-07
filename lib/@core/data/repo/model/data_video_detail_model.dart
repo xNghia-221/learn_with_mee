@@ -15,6 +15,8 @@ class DataVideoDetail {
   String? createdAt;
   String? updatedAt;
   Teacher? teacher;
+  String? urlVideoPlay;
+  String? urlThumbnail;
 
   DataVideoDetail(
       {this.id,
@@ -30,9 +32,10 @@ class DataVideoDetail {
       this.deletedAt,
       this.createdAt,
       this.updatedAt,
+      this.urlThumbnail,
       this.teacher});
 
-  DataVideoDetail.fromJson(Map<String, dynamic> json) {
+  DataVideoDetail.fromJson(Map<String, dynamic> json, String? baseUrlVideo) {
     id = json['id'];
     teacherId = json['teacher_id'];
     url = json['url'];
@@ -47,7 +50,10 @@ class DataVideoDetail {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     teacher =
-        json['teacher'] != null ? Teacher.fromJson(json['teacher']) : null;
+    json['teacher'] != null ? Teacher.fromJson(json['teacher']) : null;
+    urlVideoPlay = "$baseUrlVideo$url";
+    urlThumbnail =
+    poster?.contains("http") == true ? poster : "$baseUrlVideo$poster";
   }
 
   Map<String, dynamic> toJson() {

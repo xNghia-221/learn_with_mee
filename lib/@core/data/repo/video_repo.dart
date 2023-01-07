@@ -1,4 +1,4 @@
-import 'package:learn_with_mee/@core/data/repo/model/video_model.dart';
+import 'package:learn_with_mee/@core/data/repo/model/data_model.dart';
 
 import '../api/video_list_api.dart';
 
@@ -7,15 +7,15 @@ class VideoRepo {
 
   VideoRepo(this.videoListApi);
 
-  /*Future<Video?> getListVideo() async {
-    var res = await videoListApi.getListVideo();
-    return res?.success == true ? Video.fromJson(res?.data) : null;
+  Future<Data?> getListVideo([int? limit, int? page]) async {
+    var res = await videoListApi.getListVideo(limit, page);
+    return res?.status == true ? Data.fromJson(res?.data, res?.mediaUrl) : null;
   }
 
-  Future<Video?> getListVideoOfTeacher(int? limit, int? page,
+  Future<Data?> getListVideoOfTeacher(int? limit, int? page,
       {required String teacherId}) async {
     var res = await videoListApi.getListVideoOfTeacher(limit, page,
         teacherId: teacherId);
-    return res?.success == true ? Video.fromJson(res?.data) : null;
-  }*/
+    return res?.status == true ? Data.fromJson(res?.data, res?.mediaUrl) : null;
+  }
 }
