@@ -7,7 +7,7 @@ class VideoRepo {
 
   VideoRepo(this.videoListApi);
 
-  Future<Video?> getListVideo() async {
+  /*Future<Video?> getListVideo() async {
     var res = await videoListApi.getListVideo();
     return res?.success == true ? Video.fromJson(res?.data) : null;
   }
@@ -17,5 +17,5 @@ class VideoRepo {
     var res = await videoListApi.getListVideoOfTeacher(limit, page,
         teacherId: teacherId);
     return res?.success == true ? Video.fromJson(res?.data) : null;
-  }
+  }*/
 }

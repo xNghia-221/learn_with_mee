@@ -15,13 +15,7 @@ class SplashScreen extends GetView<SplashController> {
         titleAppBar: "Demo Get-X",
         body: GestureDetector(
             onTap: () {
-              controller.updateCounter();
-              if (controller.counter % 2 == 0) {
-                Get.updateLocale(Locale('ja', 'JP'));
-              } else {
-                Get.updateLocale(Locale('en', 'US'));
-              }
-              goTo(screen: ROUTER_HOME, argument: controller.login.value);
+              goTo(screen: ROUTER_PROFILE, argument: controller.login.value);
             },
             child: Column(
               children: [
