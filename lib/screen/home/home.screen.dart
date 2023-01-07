@@ -6,6 +6,8 @@ import '../../@share/widget/scaffold.widget.dart';
 import 'home.controller.dart';
 
 class HomeScreen extends GetWidget<HomeController> {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(

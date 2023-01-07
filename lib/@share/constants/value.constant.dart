@@ -1,7 +1,7 @@
 const BASE_URL = 'base_url';
 const BEARER = "Bearer";
 const AUTHORIZATION = "Authorization";
-const ACCEPT = "ACCEPT";
+const ACCEPT = "Accept";
 const CONTENT = "application/json";
 const CONTENT_TYPE = "application/json; charset=utf-8";
 

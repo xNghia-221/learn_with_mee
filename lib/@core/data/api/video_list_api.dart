@@ -3,7 +3,7 @@ import 'package:learn_with_mee/@core/data/repo/model/video_model.dart';
 import 'base_connect.api.dart';
 
 class VideoListApi extends BaseConnect {
-  Future<Video?> getListVideo() async {
+  /*Future<Video?> getListVideo() async {
     return await getResponse('/api/videos');
   }
 
@@ -14,5 +14,5 @@ class VideoListApi extends BaseConnect {
       "page": page ?? 1,
       "teacher_id": teacherId
     });
-  }
+  }*/
 }

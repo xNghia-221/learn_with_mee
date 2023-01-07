@@ -41,7 +41,7 @@ class SplashController extends GetxController with WidgetsBindingObserver {
         fcmToken: '');
     if (res != null) Get.find<DataStorage>().setToken(res.accessToken ?? "");
     login.value = '${Get.find<DataStorage>().getToken()}';
-    goTo(screen: ROUTER_HOME, argument: login.value);
+    goTo(screen: ROUTER_PROFILE, argument: login.value);
   }
 
   @override
