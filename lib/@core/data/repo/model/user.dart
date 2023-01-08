@@ -15,6 +15,8 @@ class User {
   String? placeOfWork;
   String? introduction;
   int? numberOfFollowers;
+  int? numberOfLikes;
+  int? following;
 
   User(
       {this.id,
@@ -32,7 +34,9 @@ class User {
       this.degree,
       this.placeOfWork,
       this.introduction,
-      this.numberOfFollowers});
+      this.numberOfFollowers,
+      this.numberOfLikes,
+      this.following});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -51,6 +55,8 @@ class User {
     placeOfWork = json['place_of_work'];
     introduction = json['introduction'];
     numberOfFollowers = json['number_of_followers'];
+    numberOfLikes = json['number_of_likes'];
+    following = json['is_following'];
   }
 
   User mapLink(String? url) {
@@ -76,6 +82,8 @@ class User {
     data['place_of_work'] = placeOfWork;
     data['introduction'] = introduction;
     data['number_of_followers'] = numberOfFollowers;
+    data['number_of_likes'] = numberOfLikes;
+    data['is_following'] = following;
     return data;
   }
 }
