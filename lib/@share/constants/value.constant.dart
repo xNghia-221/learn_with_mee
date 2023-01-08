@@ -7,3 +7,5 @@ const CONTENT_TYPE = "application/json; charset=utf-8";
 
 const MAX_TIME_OUT = 20;
 const MAX_AUTH_RETRIES = 1;
+const LIMIT_PAGE = 20;
+

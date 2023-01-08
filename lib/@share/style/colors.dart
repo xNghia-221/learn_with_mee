@@ -29,6 +29,10 @@ class AppColors {
   static var red = HexColor('#FD558F');
   static var orange = HexColor('#F9BC32');
 
+  static var primaryColor = HexColor('#63C000');
+  static var primaryDarkColor = HexColor('#1C7100');
+  static var secondColor = HexColor('#191919');
+
 
   static const MaterialColor blueSkyMaterial = MaterialColor(
     0xFF4EADFD,

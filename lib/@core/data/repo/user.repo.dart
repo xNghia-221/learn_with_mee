@@ -23,10 +23,10 @@ class UserRepo {
     return res?.success == true ? UserInfoModel.fromMap(res?.data) : null;
   }
 
-  Future<List<User>?> getProfile({required String id}) async {
+  Future<User?> getProfile({required String id}) async {
     var res = await userApi.getProfile(id: id);
     return res?.status == true
-        ? (res?.data as List).map((i) => User.fromJson(i).mapLink(res?.mediaUrl)).toList()
+        ? User.fromJson(res?.data).mapLink(res?.mediaUrl)
         : null;
   }
 }

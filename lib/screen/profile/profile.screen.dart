@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:learn_with_mee/@core/data/repo/model/data_video_detail_model.dart';
 import 'package:learn_with_mee/@share/style/colors.dart';
 import 'package:learn_with_mee/@share/utils/util.dart';
 import 'package:learn_with_mee/@share/widget/scaffold.widget.dart';
@@ -30,7 +31,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                           goBack();
                         }),
                         Text(
-                          controller.user.value?.name ?? "Developer",
+                          controller.user.value?.name ?? "",
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -66,15 +67,15 @@ class ProfileScreen extends GetWidget<ProfileController> {
                         Column(
                           children: [
                             Text(
-                              /*controller.user.value. */
-                              "1000",
-                              style: TextStyle(
+                              controller.user.value?.following?.toString() ??
+                                  0.toString(),
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(height: 5),
-                            Text(
+                            const SizedBox(height: 5),
+                            const Text(
                               'Following',
                               style: TextStyle(
                                 color: Colors.grey,
@@ -94,7 +95,9 @@ class ProfileScreen extends GetWidget<ProfileController> {
                         Column(
                           children: [
                             Text(
-                              "2000" /*controller.user['followers']*/,
+                              controller.user.value?.numberOfFollowers
+                                      ?.toString() ??
+                                  0.toString(),
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -121,7 +124,9 @@ class ProfileScreen extends GetWidget<ProfileController> {
                         Column(
                           children: [
                             Text(
-                              "999" /*controller.user['likes']*/,
+                              controller.user.value?.numberOfLikes
+                                      ?.toString() ??
+                                  0.toString(),
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -146,6 +151,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                       width: 140,
                       height: 47,
                       decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
                         border: Border.all(
                           color: Colors.black12,
                         ),
@@ -174,28 +180,28 @@ class ProfileScreen extends GetWidget<ProfileController> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 25,
-                    ),
+                    Text(controller.user.value?.introduction ?? "",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 14,
+                        )).pOnly(top: 15, bottom: 25),
                     // video list
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 3 /*controller.user['thumbnails'].length*/,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio: 1,
-                        crossAxisSpacing: 5,
+                    Obx(
+                      () => GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller.videos.value?.data?.length ?? 0,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: 1,
+                          crossAxisSpacing: 5,
+                        ),
+                        itemBuilder: (context, index) {
+                          var video = controller.videos.value?.data?[index];
+                          return _itemVideo(video: video);
+                        },
                       ),
-                      itemBuilder: (context, index) {
-                        String thumbnail =
-                            "" /*controller.user['thumbnails'][index]*/;
-                        return CachedNetworkImage(
-                          imageUrl: thumbnail,
-                          fit: BoxFit.cover,
-                        );
-                      },
                     )
                   ],
                 ),
@@ -205,5 +211,29 @@ class ProfileScreen extends GetWidget<ProfileController> {
         ),
       ),
     );
+  }
+
+  Widget _itemVideo({required DataVideoDetail? video}) {
+    return ZStack([
+      Positioned.fill(
+        child: CachedNetworkImage(
+          imageUrl: video?.urlThumbnail ?? "",
+          fit: BoxFit.cover,
+        ),
+      ),
+      Positioned(
+        bottom: 0,
+        child: HStack([
+          const Icon(Icons.play_arrow_outlined, color: Colors.white)
+              .pOnly(right: 5),
+          Text(video?.numberOfLikes?.toString() ?? "0",
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ))
+        ]),
+      )
+    ]);
   }
 }
