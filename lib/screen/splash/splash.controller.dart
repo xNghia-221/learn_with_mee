@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../@core/data/local/storage/data.storage.dart';
-import '../../@core/data/repo/user.repo.dart';
 import '../../@core/router/pages.dart';
 import '../../@share/utils/util.dart';
 
@@ -34,14 +32,7 @@ class SplashController extends GetxController with WidgetsBindingObserver {
   }
 
   getData() async {
-    var _userRepo = Get.find<UserRepo>();
-    var res = await _userRepo.loginManual(
-        email: 'gumitest.bizon05@gmail.com',
-        password: 'Gumi7393',
-        fcmToken: '');
-    if (res != null) Get.find<DataStorage>().setToken(res.accessToken ?? "");
-    login.value = '${Get.find<DataStorage>().getToken()}';
-    goTo(screen: ROUTER_PROFILE, argument: login.value);
+    goTo(screen: ROUTER_HOME, argument: login.value);
   }
 
   @override

@@ -31,12 +31,12 @@ class Data {
       this.to,
       this.total});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json, String? baseUrlVideo) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
       data = <DataVideoDetail>[];
       json['data'].forEach((v) {
-        data!.add(DataVideoDetail.fromJson(v));
+        data!.add(DataVideoDetail.fromJson(v, baseUrlVideo));
       });
     }
     firstPageUrl = json['first_page_url'];

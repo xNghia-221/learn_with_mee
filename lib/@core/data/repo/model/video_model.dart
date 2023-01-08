@@ -4,14 +4,13 @@ import 'data_model.dart';
 class Video extends BaseResponse {
   bool? statusVideo;
   Data? dataVideo;
-  String? mediaUrl;
 
-  Video({this.statusVideo, this.dataVideo, this.mediaUrl}) : super();
+  Video({this.statusVideo, this.dataVideo}) : super();
 
-  Video.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
-    mediaUrl = json['media_url'];
+  Video.fromJson(Map<String, dynamic> json, String? baseUrlVideo) {
+    statusVideo = json['status'];
+    dataVideo =
+        json['data'] != null ? Data.fromJson(json['data'], baseUrlVideo) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -20,7 +19,6 @@ class Video extends BaseResponse {
     if (dataVideo != null) {
       data['data'] = this.data!.toJson();
     }
-    data['media_url'] = mediaUrl;
     return data;
   }
 }

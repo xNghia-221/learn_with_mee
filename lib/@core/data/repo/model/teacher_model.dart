@@ -6,7 +6,7 @@ class Teacher {
   String? gender;
   String? avatar;
   String? status;
-  Null? degree;
+  String? degree;
 
   Teacher(
       {this.id,
@@ -30,15 +30,15 @@ class Teacher {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['dob'] = this.dob;
-    data['gender'] = this.gender;
-    data['avatar'] = this.avatar;
-    data['status'] = this.status;
-    data['degree'] = this.degree;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['email'] = email;
+    data['dob'] = dob;
+    data['gender'] = gender;
+    data['avatar'] = avatar;
+    data['status'] = status;
+    data['degree'] = degree;
     return data;
   }
 }

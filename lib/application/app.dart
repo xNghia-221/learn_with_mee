@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 
@@ -21,16 +22,22 @@ class _ApplicationState extends State<Application> {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      navigatorKey: Get.key,
-      theme: _applicationTheme(),
-      defaultTransition: Transition.fadeIn,
-      builder: (_, child) => FlutterEasyLoading(child: child),
-      initialRoute: ROUTER_SPLASH,
-      getPages: Routers.route,
-      translations: Localizes(),
-      locale: Localizes.locale,
-      fallbackLocale: Localizes.fallbackLocale,
+    return ScreenUtilInit(
+      designSize: const Size(375, 734),
+      builder: (BuildContext context, Widget? child) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorKey: Get.key,
+          theme: _applicationTheme(),
+          defaultTransition: Transition.fadeIn,
+          builder: (_, child) => FlutterEasyLoading(child: child),
+          initialRoute: ROUTER_SPLASH,
+          getPages: Routers.route,
+          translations: Localizes(),
+          locale: Localizes.locale,
+          fallbackLocale: Localizes.fallbackLocale,
+        );
+      },
     );
   }
 
