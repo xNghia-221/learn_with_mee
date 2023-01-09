@@ -31,7 +31,7 @@ class _ApplicationState extends State<Application> {
           theme: _applicationTheme(),
           defaultTransition: Transition.fadeIn,
           builder: (_, child) => FlutterEasyLoading(child: child),
-          initialRoute: ROUTER_SPLASH,
+          initialRoute: ROUTER_HOME,
           getPages: Routers.route,
           translations: Localizes(),
           locale: Localizes.locale,
