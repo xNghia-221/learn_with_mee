@@ -10,7 +10,6 @@ class HomeController extends GetxController {
   var userName = ''.obs;
   final _dataVideo = Data().obs;
   final _thumbnailFile = "".obs;
-  final videoPlayerController = VideoPlayerController.network("").obs;
   final isShowThumbnail = true.obs;
   var initialVideo = true;
 
@@ -18,25 +17,36 @@ class HomeController extends GetxController {
 
   String? get thumbnailFile => _thumbnailFile.value;
 
-  PageController pageController = PageController(initialPage: 0, viewportFraction: 1);
+  PageController pageController =
+      PageController(initialPage: 0, viewportFraction: 1);
+
+  bool isOnPageTurning = false;
+  int current = 0;
+
+  var saveVideoPlayerController = VideoPlayerController.network("").obs;
 
   @override
   void onInit() {
-    pageController.addListener(() {
-      var page = pageController.page;
-      if(page != null) {
+    /*pageController.addListener(() {
+      scrollListener();
+    });*/
+    super.onInit();
+  }
+
+  void scrollListener() {
+    var page = pageController.page;
+    if (page != null) {
+      if (isOnPageTurning && page == page.roundToDouble()) {
+        current = page.toInt();
+        isOnPageTurning = false;
         var pageRound = page.round();
-        if(page > page.toInt() + 0.5) {
-          final data = dataVideo?.data?[pageRound];
-          initVideoController(data?.urlVideoPlay ?? "");
-        }
-        else {
-          final data = dataVideo?.data?[pageRound];
-          initVideoController(data?.urlVideoPlay ?? "");
+        final data = dataVideo?.data?[pageRound];
+      } else if (!isOnPageTurning && current.toDouble() != page) {
+        if ((current.toDouble() - page).abs() > 0.5) {
+          isOnPageTurning = true;
         }
       }
-    });
-    super.onInit();
+    }
   }
 
   @override
@@ -50,21 +60,19 @@ class HomeController extends GetxController {
     getVideoList();
   }
 
-  initVideoController(String urlVideo) {
+  /*initVideoController(String urlVideo) {
     videoPlayerController.value.dispose();
     videoPlayerController.value = VideoPlayerController.network(urlVideo)
       ..initialize().then((value) async {
-        showLoading();
         await playVideo();
         videoPlayerController.value.setVolume(1);
-        hideLoading();
       });
-  }
+  }*/
 
-  playVideo() async {
+  /*playVideo() async {
     await videoPlayerController.value.play();
     isShowThumbnail.value = false;
-  }
+  }*/
 
   getVideoList() async {
     showLoading();

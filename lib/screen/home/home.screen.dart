@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:learn_with_mee/@core/router/pages.dart';
+import 'package:learn_with_mee/@share/constants/value.constant.dart';
 import 'package:learn_with_mee/screen/home/video_item.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../@share/utils/util.dart';
 import '../../widget/circle_animation.dart';
@@ -15,21 +19,23 @@ class HomeScreen extends GetWidget<HomeController> {
     return Scaffold(
       body: Obx(() {
         return PageView.builder(
-          itemCount: controller.dataVideo?.data?.length,
+          itemCount: controller.dataVideo?.data?.length ?? 0,
           controller: controller.pageController,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             final data = controller.dataVideo?.data?[index];
-            if (controller.initialVideo && index == 0) {
-              controller.initVideoController(data?.urlVideoPlay ?? "");
-              controller.initialVideo = false;
-            }
+            VideoPlayerController videoPlayerController =
+                VideoPlayerController.network(data?.urlVideoPlay ?? "")
+                  ..initialize()
+                  ..play()
+                  ..setLooping(true);
+
+            debugPrint("OKE: $index -  ${data?.urlVideoPlay}");
             return Stack(
               children: [
                 VideoPlayerItem(
                     dataVideoDetail: data,
-                    videoPlayerController:
-                        controller.videoPlayerController.value,
+                    videoPlayerController: videoPlayerController,
                     videoUrl: data?.urlVideoPlay ?? "",
                     isShowThumbnail: controller.isShowThumbnail.value),
                 Column(
@@ -101,7 +107,7 @@ class HomeScreen extends GetWidget<HomeController> {
                                 // ),
                                 Column(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.favorite,
                                       size: 40,
                                     ),
@@ -117,9 +123,13 @@ class HomeScreen extends GetWidget<HomeController> {
                                 ),
                                 Column(
                                   children: [
+                                    const Icon(
+                                      Icons.comment,
+                                      size: 40,
+                                    ),
                                     const SizedBox(height: 7),
                                     Text(
-                                      "2",
+                                      "${data?.numberOfComments ?? 0}",
                                       style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
@@ -138,19 +148,24 @@ class HomeScreen extends GetWidget<HomeController> {
                                       ),
                                     ),
                                     const SizedBox(height: 7),
-                                    Text(
-                                      "2",
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
-                                    )
                                   ],
                                 ),
                                 CircleAnimation(
                                   child: buildMusicAlbum(
                                       data?.teacher?.avatar ?? ""),
-                                ),
+                                ).onTap(() async {
+                                  if (data?.id != null) {
+                                    controller.saveVideoPlayerController.value =
+                                        videoPlayerController;
+                                    videoPlayerController.pause();
+                                    var dataBack = await goTo(screen: ROUTER_PROFILE, argument: {
+                                      TEACHER_ID: data?.teacherId,
+                                    });
+                                    if(dataBack[RESUME_VIDEO] == true) {
+                                      videoPlayerController.play();
+                                    }
+                                  }
+                                }),
                               ],
                             ),
                           ),
