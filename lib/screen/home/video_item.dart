@@ -6,7 +6,7 @@ import 'package:video_player/video_player.dart';
 class VideoPlayerItem extends GetWidget {
   final String videoUrl;
   final DataVideoDetail? dataVideoDetail;
-  final VideoPlayerController videoPlayerController;
+  final VideoPlayerController? videoPlayerController;
   final bool isShowThumbnail;
 
   const VideoPlayerItem(
@@ -29,14 +29,16 @@ class VideoPlayerItem extends GetWidget {
           decoration: const BoxDecoration(
             color: Colors.black,
           ),
-          child: VideoPlayer(videoPlayerController),
+          child: videoPlayerController == null
+              ? Container()
+              : VideoPlayer(videoPlayerController!),
         ),
-        if (dataVideoDetail?.poster != null && isShowThumbnail) ...[
+        /*if (dataVideoDetail?.poster != null && isShowThumbnail) ...[
           Image.network(
             dataVideoDetail!.urlThumbnail!,
             fit: BoxFit.fitHeight,
           ),
-        ],
+        ],*/
       ],
     );
   }

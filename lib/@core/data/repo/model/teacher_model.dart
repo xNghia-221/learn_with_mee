@@ -18,13 +18,14 @@ class Teacher {
       this.status,
       this.degree});
 
-  Teacher.fromJson(Map<String, dynamic> json) {
+  Teacher.fromJson(Map<String, dynamic> json, String? baseUrlVideo) {
     id = json['id'];
     name = json['name'];
     email = json['email'];
     dob = json['dob'];
     gender = json['gender'];
     avatar = json['avatar'];
+    avatar = "$baseUrlVideo$avatar";
     status = json['status'];
     degree = json['degree'];
   }
