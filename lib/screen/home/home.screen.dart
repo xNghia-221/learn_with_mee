@@ -16,11 +16,14 @@ class HomeScreen extends GetWidget<HomeController> {
       body: Obx(() {
         return PageView.builder(
           itemCount: controller.dataVideo?.data?.length,
-          controller: PageController(initialPage: 0, viewportFraction: 1),
+          controller: controller.pageController,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             final data = controller.dataVideo?.data?[index];
-            controller.initVideoController(data?.urlVideoPlay ?? "");
+            if (controller.initialVideo && index == 0) {
+              controller.initVideoController(data?.urlVideoPlay ?? "");
+              controller.initialVideo = false;
+            }
             return Stack(
               children: [
                 VideoPlayerItem(
