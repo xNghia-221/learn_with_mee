@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:learn_with_mee/@core/data/repo/model/data_video_detail_model.dart';
+import 'package:learn_with_mee/@share/constants/value.constant.dart';
 import 'package:learn_with_mee/@share/style/colors.dart';
 import 'package:learn_with_mee/@share/utils/util.dart';
 import 'package:learn_with_mee/@share/widget/scaffold.widget.dart';
@@ -28,7 +29,9 @@ class ProfileScreen extends GetWidget<ProfileController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Icon(Icons.arrow_back_ios).p20().onTap(() {
-                          goBack();
+                          goBack(argument: {
+                            RESUME_VIDEO: true,
+                          });
                         }),
                         Text(
                           controller.user.value?.name ?? "",
