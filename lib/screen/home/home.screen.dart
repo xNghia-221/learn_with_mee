@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:learn_with_mee/@core/router/pages.dart';
 import 'package:learn_with_mee/@share/constants/value.constant.dart';
 import 'package:learn_with_mee/screen/home/video_item.dart';
@@ -108,9 +107,10 @@ class HomeScreen extends GetWidget<HomeController> {
                                 // ),
                                 Column(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.favorite,
                                       size: 40,
+                                      color: Colors.white,
                                     ),
                                     const SizedBox(height: 7),
                                     Text(
@@ -124,9 +124,14 @@ class HomeScreen extends GetWidget<HomeController> {
                                 ),
                                 Column(
                                   children: [
+                                    const Icon(
+                                      Icons.comment,
+                                      size: 40,
+                                      color: Colors.white,
+                                    ),
                                     const SizedBox(height: 7),
                                     Text(
-                                      "2",
+                                      "${data?.numberOfComments ?? 0}",
                                       style: const TextStyle(
                                         fontSize: 20,
                                         color: Colors.white,
@@ -145,25 +150,20 @@ class HomeScreen extends GetWidget<HomeController> {
                                       ),
                                     ),
                                     const SizedBox(height: 7),
-                                    Text(
-                                      "2",
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                      ),
-                                    )
                                   ],
                                 ),
                                 CircleAnimation(
                                   child: buildMusicAlbum(
                                       data?.teacher?.avatar ?? ""),
-                                ).onTap(() {
+                                ).onTap(() async {
                                   if (data?.id != null) {
-                                    goTo(
-                                        screen: ROUTER_PROFILE,
-                                        argument: {
-                                          TEACHER_ID: data?.teacherId,
-                                        });
+                                    videoPlayerController.pause();
+                                    var dataBack = await goTo(screen: ROUTER_PROFILE, argument: {
+                                      TEACHER_ID: data?.teacherId,
+                                    });
+                                    if(dataBack[RESUME_VIDEO] == true) {
+                                      videoPlayerController.play();
+                                    }
                                   }
                                 }),
                               ],
