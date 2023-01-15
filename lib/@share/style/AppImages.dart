@@ -1,6 +1,7 @@
 class AppImages{
   static const base_asset = "assets/images/";
   static String logoSplash = "${base_asset}logo.png";
+  static String googleIcon = "${base_asset}google.svg";
 }
 
 /*

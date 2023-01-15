@@ -1,3 +1,5 @@
+import 'package:learn_with_mee/@core/data/repo/model/credentials.model.dart';
+
 import '../repo/response/base.response.dart';
 import 'base_connect.api.dart';
 
@@ -12,6 +14,14 @@ class UserApi extends BaseConnect {
 
   Future<BaseResponse?> getProfile({required String id}) async {
     return await getResponse('/api/teachers/$id');
+  }
+
+  Future<Map<String, dynamic>?> clientCredentials(Map<String, dynamic> map) async {
+    return await postRequestDynamic('/oauth/token', body: map);
+  }
+
+  Future<Map<String, dynamic>?> login(Map<String, dynamic> map) async {
+    return await postRequestDynamic('/api/users/login', body: map);
   }
 
 // Future<BaseResponse> postImages(List<String> image) {

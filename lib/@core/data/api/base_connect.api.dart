@@ -66,4 +66,17 @@ class BaseConnect extends GetConnect {
           code: response.status.code);
     }
   }
+
+  Future<dynamic> postRequestDynamic(String url, {dynamic body}) async {
+    Get.log('[BODY] : ${body.toString()}');
+    var response =
+    await post(url, body);
+    if (response.isOk) {
+      return response.body;
+    } else {
+      dispose();
+      hideLoading();
+      return null;
+    }
+  }
 }

@@ -1,28 +1,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:learn_with_mee/@share/utils/util.dart';
+import 'package:learn_with_mee/screen/login/login.screen.dart';
 import 'package:learn_with_mee/screen/splash/splash.controller.dart';
 
-import '../../@core/router/pages.dart';
-import '../../@share/constants/language.constant.dart';
-import '../../@share/utils/util.dart';
-import '../../@share/widget/scaffold.widget.dart';
-
 class SplashScreen extends GetView<SplashController> {
+  const SplashScreen({super.key});
+
+  Widget _buildBody() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Obx(() => Text(controller.contactText.value)),
+        ElevatedButton(
+          onPressed: () {
+            Get.bottomSheet(
+                SizedBox(
+                    height: heightScreen(percent: 90),
+                    child: const LoginScreen()),
+                isScrollControlled: true);
+          },
+          child: const Text('SIGN IN'),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-        titleAppBar: "Demo Get-X",
-        body: GestureDetector(
-            onTap: () {
-              goTo(screen: ROUTER_PROFILE, argument: controller.login.value);
-            },
-            child: Column(
-              children: [
-                Text(getLocalize(helloLang, args: [])),
-                Obx(() => Text('${controller.counter}')),
-                Obx(() => Text('${controller.login}')),
-              ],
-            )));
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Google Sign In'),
+        ),
+        body: ConstrainedBox(
+          constraints: const BoxConstraints.expand(),
+          child: _buildBody(),
+        ));
   }
 }
