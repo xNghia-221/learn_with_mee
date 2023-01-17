@@ -7,8 +7,8 @@ class VideoRepo {
 
   VideoRepo(this.videoListApi);
 
-  Future<Data?> getListVideo([int? limit, int? page]) async {
-    var res = await videoListApi.getListVideo(limit, page);
+  Future<Data?> getListVideo({int? limit, int? page}) async {
+    var res = await videoListApi.getListVideo(limit: limit, page: page);
     return res?.status == true ? Data.fromJson(res?.data, res?.mediaUrl) : null;
   }
 

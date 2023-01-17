@@ -14,8 +14,10 @@ class Routers {
         page: () => SplashScreen(),
         binding: SplashBinding()),
     GetPage(
-        name: ROUTER_HOME, page: () => const HomeScreen(), binding: HomeBinding()),
+        name: ROUTER_HOME, page: () => HomeScreen(), binding: HomeBinding()),
     GetPage(
-        name: ROUTER_PROFILE, page: () => const ProfileScreen(), binding: ProfileBinding()),
+        name: ROUTER_PROFILE,
+        page: () => const ProfileScreen(),
+        binding: ProfileBinding()),
   ];
 }
