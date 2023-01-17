@@ -49,11 +49,12 @@ class DataVideoDetail {
     deletedAt = json['deleted_at'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    teacher =
-    json['teacher'] != null ? Teacher.fromJson(json['teacher']) : null;
+    teacher = json['teacher'] != null
+        ? Teacher.fromJson(json['teacher'], baseUrlVideo)
+        : null;
     urlVideoPlay = "$baseUrlVideo$url";
     urlThumbnail =
-    poster?.contains("http") == true ? poster : "$baseUrlVideo$poster";
+        poster?.contains("http") == true ? poster : "$baseUrlVideo$poster";
   }
 
   Map<String, dynamic> toJson() {
