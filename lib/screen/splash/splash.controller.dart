@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../@core/router/pages.dart';
-import '../../@share/utils/util.dart';
-
 class SplashController extends GetxController with WidgetsBindingObserver {
   var counter = 0.obs;
 
@@ -31,15 +28,15 @@ class SplashController extends GetxController with WidgetsBindingObserver {
     super.onInit();
   }
 
-  getData() async {
-    goTo(screen: ROUTER_HOME, argument: login.value);
-  }
+  // getData() async {
+  //   goTo(screen: ROUTER_HOME, argument: login.value);
+  // }
 
   @override
   void onReady() {
     super.onReady();
     Get.log("onReady");
-    getData();
+    //getData();
   }
 
   @override
