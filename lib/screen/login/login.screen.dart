@@ -85,7 +85,9 @@ class LoginScreen extends GetView<LoginController> {
                   tileColor: const Color(0xFFF5F5F5),
                   dense: false,
                 ),
-              ).pOnly(left: 20, top: 10, right: 20),
+              ).pOnly(left: 20, top: 10, right: 20).onTap(() {
+                controller.handleSignInFacebook();
+              }),
               Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 color: const Color(0xFFF5F5F5),
@@ -105,7 +107,7 @@ class LoginScreen extends GetView<LoginController> {
                   dense: false,
                 ),
               ).paddingSymmetric(horizontal: 20).onTap(() {
-                controller.handleSignIn();
+                controller.handleSignInGoogle();
               }),
               const Spacer(),
               Container(
