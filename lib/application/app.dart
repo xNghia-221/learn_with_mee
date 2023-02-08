@@ -3,6 +3,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:learn_with_mee/@core/data/local/storage/data.storage.dart';
+import 'package:learn_with_mee/@core/data/repo/model/LoginResponse.dart';
 
 import '../@core/router/pages.dart';
 import '../@core/router/router.dart';
@@ -14,6 +16,7 @@ class Application extends StatefulWidget {
 }
 
 class _ApplicationState extends State<Application> {
+  final storage = Get.put(DataStorage());
   @override
   void initState() {
     super.initState();
@@ -22,6 +25,7 @@ class _ApplicationState extends State<Application> {
 
   @override
   Widget build(BuildContext context) {
+    final token = storage.getToken() != null ? LoginResponse.fromJson(storage.getToken()) : null;
     return ScreenUtilInit(
       designSize: const Size(375, 734),
       builder: (BuildContext context, Widget? child) {
@@ -31,7 +35,7 @@ class _ApplicationState extends State<Application> {
           theme: _applicationTheme(),
           defaultTransition: Transition.fadeIn,
           builder: (_, child) => FlutterEasyLoading(child: child),
-          initialRoute: ROUTER_HOME,
+          initialRoute: token != null ? ROUTER_HOME : ROUTER_LOGIN,
           getPages: Routers.route,
           translations: Localizes(),
           locale: Localizes.locale,
