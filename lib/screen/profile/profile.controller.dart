@@ -27,7 +27,7 @@ class ProfileController extends GetxController {
       var res =
           await userRepo.getProfile(id: teacherId!);
       hideLoading();
-      user.value = res;
+      user.value = res?.data;
       var id = user.value?.id;
       if (id != null) {
         _getVideoOfTeacher(id: id.toString(), page: 1);

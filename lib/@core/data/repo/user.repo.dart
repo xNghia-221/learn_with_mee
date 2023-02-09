@@ -3,6 +3,7 @@ import 'package:learn_with_mee/@core/data/repo/model/LoginResponse.dart';
 import 'package:learn_with_mee/@core/data/repo/model/credentials.model.dart';
 import 'package:learn_with_mee/@core/data/repo/model/credentials_token.model.dart';
 import 'package:learn_with_mee/@core/data/repo/model/user.dart';
+import 'package:learn_with_mee/@core/data/repo/response/base.data.dart';
 
 import '../api/user.api.dart';
 import 'model/loginInfo.model.dart';
@@ -27,10 +28,10 @@ class UserRepo {
     return res?.success == true ? UserInfoModel.fromMap(res?.data) : null;
   }
 
-  Future<User?> getProfile({required String id}) async {
+  Future<BaseData<User>?> getProfile({required String id}) async {
     var res = await userApi.getProfile(id: id);
     return res?.status == true
-        ? User.fromJson(res?.data).mapLink(res?.mediaUrl)
+        ? BaseData(code: res?.code, data: User.fromJson(res?.data).mapLink(res?.mediaUrl))
         : null;
   }
 
