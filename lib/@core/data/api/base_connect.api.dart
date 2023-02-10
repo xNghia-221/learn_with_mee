@@ -76,7 +76,10 @@ class BaseConnect extends GetConnect {
     } else {
       dispose();
       hideLoading();
-      return null;
+      return BaseResponse(
+          success: false,
+          message: response.statusText,
+          code: response.status.code);
     }
   }
 }

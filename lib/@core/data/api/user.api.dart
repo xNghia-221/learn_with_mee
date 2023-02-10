@@ -16,11 +16,11 @@ class UserApi extends BaseConnect {
     return await getResponse('/api/teachers/$id');
   }
 
-  Future<Map<String, dynamic>?> clientCredentials(Map<String, dynamic> map) async {
+  Future<dynamic> clientCredentials(Map<String, dynamic> map) async {
     return await postRequestDynamic('/oauth/token', body: map);
   }
 
-  Future<Map<String, dynamic>?> login(Map<String, dynamic> map) async {
+  Future<dynamic> login(Map<String, dynamic> map) async {
     return await postRequestDynamic('/api/users/login', body: map);
   }
 

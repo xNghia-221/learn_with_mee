@@ -8,6 +8,7 @@ class BaseResponse {
   dynamic data;
   List<ErrorMessageModel>? errors;
   String? mediaUrl;
+  String? error;
 
   BaseResponse(
       {this.status,
@@ -16,7 +17,8 @@ class BaseResponse {
       this.data,
       this.errors,
       this.code,
-      this.mediaUrl});
+      this.mediaUrl,
+      this.error});
 
   factory BaseResponse.fromMap(dynamic map) {
     return map is Map
@@ -28,6 +30,7 @@ class BaseResponse {
             data: map['data'],
             errors: map['errors'],
             mediaUrl: map['media_url'],
+            error: map['error'],
           )
         : BaseResponse();
   }
@@ -40,5 +43,6 @@ class BaseResponse {
         'data': data,
         'errors': errors,
         'media_url': mediaUrl,
+        'error': error,
       };
 }
