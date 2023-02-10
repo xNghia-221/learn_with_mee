@@ -6,3 +6,5 @@ const titleLogin = "titleLogin";
 const descriptionLogin = "descriptionLogin";
 const faceBookLogin = "faceBookLogin";
 const googleLogin = "googleLogin";
+const ok = "ok";
+const cancel = "cancel";

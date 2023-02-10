@@ -113,8 +113,8 @@ class HomeController extends GetxController
     final data = await videoRepo.getListVideo(
             limit: LIMIT_PAGE, page: currentPageMainVideo) ??
         Data();
-    lastPageMainVideo = data?.lastPage ?? currentPageMainVideo;
-    listVideo.value.addAll(data?.data ?? []);
+    lastPageMainVideo = data.lastPage ?? currentPageMainVideo;
+    listVideo.value.addAll(data.data ?? []);
     listVideo.refresh();
     listVideoTemp = listVideo.value;
     hideLoading();
