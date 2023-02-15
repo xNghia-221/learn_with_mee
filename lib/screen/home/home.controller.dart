@@ -28,6 +28,10 @@ class HomeController extends GetxController
   var currentPageTeacherVideo = 0;
   var lastPageTeacherVideo = 0;
 
+  String videoUrl = "";
+
+  var snappedPageIndex = 0.obs;
+
   var isScrollNextPage = false;
 
   final videos = Data().obs;
@@ -35,7 +39,7 @@ class HomeController extends GetxController
   String? get thumbnailFile => _thumbnailFile.value;
 
   PageController pageControllerMainVideoVertical =
-      PageController(initialPage: 0, viewportFraction: 1);
+  PageController(initialPage: 0, viewportFraction: 1);
 
   bool isOnPageTurning = false;
   int current = 0;

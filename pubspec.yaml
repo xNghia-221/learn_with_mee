@@ -55,7 +55,8 @@ dependencies:
   video_thumbnail: ^0.5.3
   path_provider: ^2.0.2
   preload_page_view: ^0.1.6
-  flutter_native_splash: ^2.2.16
+  flutter_native_splash: ^2.2.17
+  wakelock: ^0.6.2
   google_sign_in: ^5.4.3
   flutter_facebook_auth: ^5.0.7
   pull_to_refresh: ^2.0.0
