@@ -18,7 +18,7 @@ class UserApi extends BaseConnect {
   }
 
   Future<dynamic> clientCredentials({required Credentials credentials}) async {
-    return await postRequestDynamic('/oauth/token', body: credentials.toJson());
+    return await postRequestDynamic('/oauth/token', body: credentials);
   }
 
   Future<dynamic> login({required LoginRequest loginRequest}) async {

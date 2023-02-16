@@ -1,25 +1,18 @@
-class LoginInfoModel {
-  String? accessToken;
-  String? tokenType;
-  String? expiresAt;
-  int? loginType;
-  String? email;
-  String? firebaseUid;
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'loginInfo.model.freezed.dart';
+part 'loginInfo.model.g.dart';
 
-  LoginInfoModel(
-      {required this.accessToken,
-      required this.tokenType,
-      required this.expiresAt});
+@freezed
+class LoginInfoModel with _$LoginInfoModel {
+  factory LoginInfoModel({
+    @JsonKey(name:'access_token') String? accessToken,
+    @JsonKey(name:'token_type') String? tokenType,
+    @JsonKey(name:'expires_at') String? expiresAt,
+    int? loginType,
+    String? email,
+    String? firebaseUid,
+  })= _LoginInfoModel;
 
-  factory LoginInfoModel.fromMap(Map<String, dynamic> map) => LoginInfoModel(
-        accessToken: map['access_token'] as String,
-        tokenType: map['token_type'] as String,
-        expiresAt: map['expires_at'] as String,
-      );
-
-  Map<String, dynamic> toMap() => {
-        'accessToken': accessToken,
-        'tokenType': tokenType,
-        'expiresAt': expiresAt,
-      };
+  factory LoginInfoModel.fromJson(Map<String, dynamic> json) =>
+      _$LoginInfoModelFromJson(json);
 }

@@ -1,28 +1,18 @@
 import 'package:learn_with_mee/@core/data/repo/model/picture_model.dart';
 
-class DataFBModel {
-  String? name;
-  String? email;
-  PictureModel? picture;
-  String? id;
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'data_fb_model.freezed.dart';
+part 'data_fb_model.g.dart';
 
-  DataFBModel({this.name, this.email, this.picture, this.id});
+@freezed
+class DataFBModel with _$DataFBModel {
+  factory DataFBModel({
+    @JsonKey(name:'name') String? name,
+    @JsonKey(name:'email') String? email,
+    @JsonKey(name:'picture') PictureModel? picture,
+    @JsonKey(name:'id') String? id,
+  })= _DataFBModel;
 
-  DataFBModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    email = json['email'];
-    picture = json['picture'] != null
-        ? PictureModel?.fromJson(json['picture'])
-        : null;
-    id = json['id'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['name'] = name;
-    data['email'] = email;
-    data['picture'] = picture!.toJson();
-    data['id'] = id;
-    return data;
-  }
+  factory DataFBModel.fromJson(Map<String, dynamic> json) =>
+      _$DataFBModelFromJson(json);
 }

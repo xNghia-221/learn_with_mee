@@ -1,24 +1,16 @@
-class LoginResponse {
-  bool? status;
-  String? token;
-  String? socialId;
-  int? expiresAt;
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'LoginResponse.freezed.dart';
+part 'LoginResponse.g.dart';
 
-  LoginResponse({this.status, this.token, this.socialId, this.expiresAt});
+@freezed
+class LoginResponse with _$LoginResponse {
+  factory LoginResponse({
+    @JsonKey(name:'status') bool? status,
+    @JsonKey(name:'token') String? token,
+    @JsonKey(name:'social_id') String? socialId,
+    @JsonKey(name:'expires_at') int? expiresAt,
+  })= _LoginResponse;
 
-  LoginResponse.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    token = json['token'];
-    socialId = json['social_id'];
-    expiresAt = json['expires_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    data['token'] = token;
-    data['social_id'] = socialId;
-    data['expires_at'] = expiresAt;
-    return data;
-  }
+  factory LoginResponse.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseFromJson(json);
 }

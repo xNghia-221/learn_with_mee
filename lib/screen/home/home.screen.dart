@@ -79,7 +79,7 @@ class HomeScreen extends GetWidget<HomeController> {
           data = controller.listVideo.value.isNotEmpty
               ? controller.listVideo.value[index]
               : DataVideoDetail();
-          controller.idTeacher = data?.teacherId ?? "";
+          controller.idTeacher = data.teacherId ?? "";
         } else {
           data = controller.listTeacherVideo.value.isNotEmpty
               ? controller.listTeacherVideo.value[index]

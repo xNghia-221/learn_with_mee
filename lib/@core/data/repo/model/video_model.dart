@@ -22,3 +22,18 @@ class Video extends BaseResponse {
     return data;
   }
 }
+
+/*import 'package:freezed_annotation/freezed_annotation.dart';
+part 'video_model.freezed.dart';
+part 'video_model.g.dart';
+
+@freezed
+class Video with _$Video {
+  factory Video({
+    @JsonKey(name:'status') bool? statusVideo,
+    @JsonKey(name:'data') Data? dataVideo,
+  })= _Video;
+
+  factory Video.fromJson(Map<String, dynamic> json) =>
+      _$VideoFromJson(json);
+}*/

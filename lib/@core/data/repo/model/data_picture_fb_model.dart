@@ -1,24 +1,16 @@
-class DataPictureFBModel {
-  int? height;
-  bool? issilhouette;
-  String? url;
-  int? width;
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'data_picture_fb_model.freezed.dart';
+part 'data_picture_fb_model.g.dart';
 
-  DataPictureFBModel({this.height, this.issilhouette, this.url, this.width});
+@freezed
+class DataPictureFBModel with _$DataPictureFBModel {
+  factory DataPictureFBModel({
+    @JsonKey(name:'height') int? height,
+    @JsonKey(name:'is_silhouette') bool? issilhouette,
+    @JsonKey(name:'url') String? url,
+    @JsonKey(name:'width') int? width,
+  })= _DataPictureFBModel;
 
-  DataPictureFBModel.fromJson(Map<String, dynamic> json) {
-    height = json['height'];
-    issilhouette = json['is_silhouette'];
-    url = json['url'];
-    width = json['width'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['height'] = height;
-    data['is_silhouette'] = issilhouette;
-    data['url'] = url;
-    data['width'] = width;
-    return data;
-  }
+  factory DataPictureFBModel.fromJson(Map<String, dynamic> json) =>
+      _$DataPictureFBModelFromJson(json);
 }
