@@ -99,6 +99,9 @@ class LoginController extends GetxController with WidgetsBindingObserver {
             name: gsAccount.displayName));
     if (value != null) {
       dataStorage.setToken(value);
+      if(Get.isBottomSheetOpen == true) {
+        Get.back();
+      }
       goToAndRemoveAll(screen: ROUTER_HOME);
     }
     hideLoading();

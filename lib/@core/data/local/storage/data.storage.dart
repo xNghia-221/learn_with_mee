@@ -23,5 +23,5 @@ class DataStorage {
 
   setCredentials(CredentialsToken value) async => await _storage?.write(_credentials, value);
 
-  getCredentials() => _storage?.read(_credentials);
+  CredentialsToken getCredentials() => CredentialsToken.fromJson(_storage?.read(_credentials));
 }
