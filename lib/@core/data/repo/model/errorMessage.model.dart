@@ -1,17 +1,14 @@
-class ErrorMessageModel {
-  String field;
-  String message;
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'errorMessage.model.freezed.dart';
+part 'errorMessage.model.g.dart';
 
-  ErrorMessageModel({required this.field, required this.message});
+@freezed
+class ErrorMessageModel with _$ErrorMessageModel {
+  factory ErrorMessageModel({
+    @JsonKey(name:'field') String? field,
+    @JsonKey(name:'message') String? message,
+  })= _ErrorMessageModel;
 
-  factory ErrorMessageModel.fromMap(Map<String, dynamic> map) =>
-      ErrorMessageModel(
-        field: map['field'] as String,
-        message: map['message'] as String,
-      );
-
-  Map<String, dynamic> toMap() => {
-        'field': field,
-        'message': message,
-      };
+  factory ErrorMessageModel.fromJson(Map<String, dynamic> json) =>
+      _$ErrorMessageModelFromJson(json);
 }

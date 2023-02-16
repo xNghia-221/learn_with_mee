@@ -1,21 +1,15 @@
-class CredentialsToken {
-  String? tokenType;
-  int? expiresIn;
-  String? accessToken;
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'credentials_token.model.freezed.dart';
+part 'credentials_token.model.g.dart';
 
-  CredentialsToken({this.tokenType, this.expiresIn, this.accessToken});
+@freezed
+class CredentialsToken with _$CredentialsToken {
+  factory CredentialsToken({
+    @JsonKey(name:'token_type') String? tokenType,
+    @JsonKey(name:'expires_in') int? expiresIn,
+    @JsonKey(name:'access_token') String? accessToken,
+  })= _CredentialsToken;
 
-  CredentialsToken.fromJson(Map<String, dynamic> json) {
-    tokenType = json['token_type'];
-    expiresIn = json['expires_in'];
-    accessToken = json['access_token'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['token_type'] = tokenType;
-    data['expires_in'] = expiresIn;
-    data['access_token'] = accessToken;
-    return data;
-  }
+  factory CredentialsToken.fromJson(Map<String, dynamic> json) =>
+      _$CredentialsTokenFromJson(json);
 }

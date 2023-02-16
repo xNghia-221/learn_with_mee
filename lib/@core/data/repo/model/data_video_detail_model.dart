@@ -78,3 +78,32 @@ class DataVideoDetail {
     return data;
   }
 }
+
+/*import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'data_video_detail_model.freezed.dart';
+
+part 'data_video_detail_model.g.dart';
+
+@freezed
+class DataVideoDetail with _$DataVideoDetail {
+  factory DataVideoDetail({
+    @JsonKey(name: 'id') String? id,
+    @JsonKey(name: 'teacher_id') String? teacherId,
+    @JsonKey(name: 'url') String? url,
+    @JsonKey(name: 'poster') String? poster,
+    @JsonKey(name: 'title') String? title,
+    @JsonKey(name: 'description') String? description,
+    @JsonKey(name: 'hashtag') String? hashtag,
+    @JsonKey(name: 'number_of_comments') int? numberOfComments,
+    @JsonKey(name: 'number_of_likes') int? numberOfLikes,
+    @JsonKey(name: 'status') String? status,
+    @JsonKey(name: 'deleted_at') String? deletedAt,
+    @JsonKey(name: 'created_at') String? createdAt,
+    @JsonKey(name: 'updated_at') String? updatedAt,
+    @JsonKey(name: 'teacher') Teacher? teacher,
+  }) = _DataVideoDetail;
+
+  factory DataVideoDetail.fromJson(Map<String, dynamic> json) =>
+      _$DataVideoDetailFromJson(json);
+}*/

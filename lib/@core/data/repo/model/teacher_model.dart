@@ -43,3 +43,24 @@ class Teacher {
     return data;
   }
 }
+
+/*import 'package:freezed_annotation/freezed_annotation.dart';
+part 'teacher_model.freezed.dart';
+part 'teacher_model.g.dart';
+
+@freezed
+class Teacher with _$Teacher {
+  factory Teacher({
+    @JsonKey(name:'id') String? id,
+    @JsonKey(name:'name') String? name,
+    @JsonKey(name:'email') String? email,
+    @JsonKey(name:'dob') String? dob,
+    @JsonKey(name:'gender') String? gender,
+    @JsonKey(name:'avatar') String? avatar,
+    @JsonKey(name:'status') String? status,
+    @JsonKey(name:'degree') String? degree,
+  })= _Teacher;
+
+  factory Teacher.fromJson(Map<String, dynamic> json) =>
+      _$TeacherFromJson(json);
+}*/

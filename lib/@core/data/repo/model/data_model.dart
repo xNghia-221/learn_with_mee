@@ -1,6 +1,32 @@
 import 'data_video_detail_model.dart';
 import 'links_model.dart';
 
+/*import 'package:freezed_annotation/freezed_annotation.dart';
+part 'data_model.freezed.dart';
+part 'data_model.g.dart';
+
+@freezed
+class Data with _$Data {
+  factory Data({
+    @JsonKey(name:'current_page') int? currentPage,
+    @JsonKey(name:'data') List<DataVideoDetail>? data,
+    @JsonKey(name:'first_page_url') String? firstPageUrl,
+    @JsonKey(name:'from') int? from,
+    @JsonKey(name:'last_page') int? lastPage,
+    @JsonKey(name:'last_page_url') String? lastPageUrl,
+    @JsonKey(name:'links') List<Links>? links,
+    @JsonKey(name:'next_page_url') String? nextPageUrl,
+    @JsonKey(name:'path') String? path,
+    @JsonKey(name:'per_page') int? perPage,
+    @JsonKey(name:'prev_page_url') String? prevPageUrl,
+    @JsonKey(name:'to') int? to,
+    @JsonKey(name:'total') int? total,
+  })= _Data;
+
+  factory Data.fromJson(Map<String, dynamic> json) =>
+      _$DataFromJson(json);
+}*/
+
 class Data {
   int? currentPage;
   List<DataVideoDetail>? data;

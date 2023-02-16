@@ -1,24 +1,16 @@
-class Credentials {
-  String? grantType;
-  String? clientId;
-  String? clientSecret;
-  String? scope;
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'credentials.model.freezed.dart';
+part 'credentials.model.g.dart';
 
-  Credentials({this.grantType, this.clientId, this.clientSecret, this.scope});
+@freezed
+class Credentials with _$Credentials {
+  factory Credentials({
+    @JsonKey(name:'grant_type') String? grantType,
+    @JsonKey(name:'client_id') String? clientId,
+    @JsonKey(name:'client_secret') String? clientSecret,
+    @JsonKey(name:'scope') String? scope,
+  })= _Credentials;
 
-  Credentials.fromJson(Map<String, dynamic> json) {
-    grantType = json['grant_type'];
-    clientId = json['client_id'];
-    clientSecret = json['client_secret'];
-    scope = json['scope'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['grant_type'] = grantType;
-    data['client_id'] = clientId;
-    data['client_secret'] = clientSecret;
-    data['scope'] = scope;
-    return data;
-  }
+  factory Credentials.fromJson(Map<String, dynamic> json) =>
+      _$CredentialsFromJson(json);
 }

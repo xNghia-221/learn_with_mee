@@ -1,21 +1,15 @@
-class Links {
-  String? url;
-  String? label;
-  bool? active;
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'links_model.freezed.dart';
+part 'links_model.g.dart';
 
-  Links({this.url, this.label, this.active});
+@freezed
+class Links with _$Links {
+  factory Links({
+    @JsonKey(name:'url') String? url,
+    @JsonKey(name:'label') String? label,
+    @JsonKey(name:'active') bool? active,
+  })= _Links;
 
-  Links.fromJson(Map<String, dynamic> json) {
-    url = json['url'];
-    label = json['label'];
-    active = json['active'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['url'] = url;
-    data['label'] = label;
-    data['active'] = active;
-    return data;
-  }
+  factory Links.fromJson(Map<String, dynamic> json) =>
+      _$LinksFromJson(json);
 }

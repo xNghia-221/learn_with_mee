@@ -1,19 +1,14 @@
 import 'data_picture_fb_model.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+part 'picture_model.freezed.dart';
+part 'picture_model.g.dart';
 
-class PictureModel {
-  DataPictureFBModel? data;
+@freezed
+class PictureModel with _$PictureModel {
+  factory PictureModel({
+    @JsonKey(name:'data') DataPictureFBModel? data,
+  })= _PictureModel;
 
-  PictureModel({this.data});
-
-  PictureModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null
-        ? DataPictureFBModel?.fromJson(json['data'])
-        : null;
-  }
-
-  DataPictureFBModel? toJson() {
-    final Map<String, dynamic> dataPicture = <String, dynamic>{};
-    dataPicture['data'] = data?.toJson();
-    return data;
-  }
+  factory PictureModel.fromJson(Map<String, dynamic> json) =>
+      _$PictureModelFromJson(json);
 }
