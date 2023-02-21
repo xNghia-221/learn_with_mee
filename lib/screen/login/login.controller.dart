@@ -20,7 +20,6 @@ class LoginController extends GetxController with WidgetsBindingObserver {
     // Optional clientId
     scopes: <String>[
       'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
     ],
   );
 

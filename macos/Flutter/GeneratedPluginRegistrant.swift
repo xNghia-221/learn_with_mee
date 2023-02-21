@@ -8,7 +8,7 @@ import Foundation
 import facebook_auth_desktop
 import flutter_secure_storage_macos
 import package_info_plus_macos
-import path_provider_macos
+import path_provider_foundation
 import sqflite
 import wakelock_macos
 

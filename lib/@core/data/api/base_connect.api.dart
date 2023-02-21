@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:learn_with_mee/@core/data/local/storage/data.storage.dart';
+import 'package:learn_with_mee/@core/data/repo/base.repo.dart';
 import 'package:learn_with_mee/constant.dart';
 
 import '../../../@share/constants/value.constant.dart';
@@ -20,7 +21,7 @@ class BaseConnect extends GetConnect {
         return request;
       })
       ..addRequestModifier<dynamic>((request) {
-        var credentials = Get.find<DataStorage>().getCredentials().accessToken;
+        var credentials = Get.find<DataStorage>().getCredentials()?.accessToken;
         request.headers[ACCEPT] = CONTENT;
         request.headers[AUTHORIZATION] = "$BEARER $credentials";
         Get.log('[URL] : ${request.url}');
@@ -41,7 +42,9 @@ class BaseConnect extends GetConnect {
       Get.log('[RESPONSE] : ${response.body}');
       return response.body;
     } else {
-      dispose();
+      if(response.status.code != unAuthorizedError) {
+        dispose();
+      }
       hideLoading();
       return BaseResponse(
           success: false,
@@ -58,7 +61,9 @@ class BaseConnect extends GetConnect {
       Get.log('[RESPONSE] : ${response.body?.toMap()}');
       return response.body;
     } else {
-      dispose();
+      if(response.status.code != unAuthorizedError) {
+        dispose();
+      }
       hideLoading();
       return BaseResponse(
           success: false,
@@ -74,7 +79,9 @@ class BaseConnect extends GetConnect {
     if (response.isOk) {
       return response.body;
     } else {
-      dispose();
+      if(response.status.code != unAuthorizedError) {
+        dispose();
+      }
       hideLoading();
       return BaseResponse(
           success: false,
