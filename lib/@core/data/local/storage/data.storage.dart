@@ -17,11 +17,17 @@ class DataStorage {
 
   getLogin() => _storage?.read(_login);
 
-  setToken(LoginResponse value) async => await _storage?.write(_token, value);
+  setToken(LoginResponse? value) async => await _storage?.write(_token, value);
 
   getToken() => _storage?.read(_token);
 
-  setCredentials(CredentialsToken value) async => await _storage?.write(_credentials, value);
+  setCredentials(CredentialsToken? value) async =>
+      await _storage?.write(_credentials, value);
 
-  CredentialsToken getCredentials() => CredentialsToken.fromJson(_storage?.read(_credentials));
+  // the first save, _storage?.read(_credentials) is CredentialsToken, then it is Map<String, dynamic> json
+  CredentialsToken? getCredentials() => _storage?.read(_credentials) != null
+      ? _storage?.read(_credentials) is CredentialsToken
+          ? _storage?.read(_credentials)
+          : CredentialsToken.fromJson(_storage?.read(_credentials))
+      : null;
 }

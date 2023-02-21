@@ -10,7 +10,7 @@ class VideoRepo extends BaseRepo {
 
   Future<Data?> getListVideo({int? limit, int? page}) async {
     var res = await videoListApi.getListVideo(limit: limit, page: page);
-    return res?.status != false
+    return res?.success != false
         ? Data.fromJson(res?.data, res?.mediaUrl)
         : await errorApi(response: res);
   }
@@ -19,7 +19,7 @@ class VideoRepo extends BaseRepo {
       {required String teacherId}) async {
     var res = await videoListApi.getListVideoOfTeacher(limit, page,
         teacherId: teacherId);
-    return res?.status != false
+    return res?.success != false
         ? Data.fromJson(res?.data, res?.mediaUrl)
         : errorApi(response: res);
   }
