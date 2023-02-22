@@ -1,0 +1,8 @@
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+#include "Generated.xcconfig"
+
+FLUTTER_FLAVOR=development
+FLUTTER_TARGET=$PROJECT_DIR/../lib/main.dart
+PRODUCT_BUNDLE_IDENTIFIER=com.learn_with_mee
+FIREBASE_DIR=$PROJECT_DIR/$PROJECT_NAME/Resources/Firebase/Development
+APP_NAME=Học cùng Mee

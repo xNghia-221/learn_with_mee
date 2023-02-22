@@ -120,3 +120,31 @@ lib/generated_plugin_registrant.dart
 /build/
 *.swift
 /lib/key.dart
+.idea/*
+.idea/libraries/Flutter_Plugins.xml
+.idea/libraries/Dart_SDK.xml
+!.idea/runConfigurations/
+android/.idea/*
+
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+/android/app/signingConfigs/production.gradle
+
+# VSCode
+
+# Credentials
+/ios/build/
+google-services.json
+GoogleService-Info.plist
+run*.sh
+google-services-dev.json
+google-services-stg.json

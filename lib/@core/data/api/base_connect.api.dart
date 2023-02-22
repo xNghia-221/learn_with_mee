@@ -10,7 +10,7 @@ class BaseConnect extends GetConnect {
   @override
   void onInit() {
     httpClient
-      ..baseUrl = Constants.dev().endpoint
+      ..baseUrl = Constants.of().endpoint
       ..maxAuthRetries = MAX_AUTH_RETRIES
       ..timeout = const Duration(seconds: MAX_TIME_OUT)
       ..defaultContentType = CONTENT_TYPE
