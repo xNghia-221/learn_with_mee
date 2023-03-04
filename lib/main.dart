@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'app_config.dart';
 import 'application/app.dart';
+import 'constant.dart';
 
 void main() async {
   await initProject();
@@ -12,6 +14,16 @@ void main() async {
 Future<void> initProject() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: ".env");
+  // Get flavor
+  AppConfig.flavor =
+      await Constants.platformChannel.invokeMethod(Constants.getFlavor);
+
+  // Check load environment follow flavor
+  if (AppConfig.flavor == Flavor.development.name) {
+    await dotenv.load(fileName: ".env");
+  } else {
+    await dotenv.load(fileName: ".env"); // add .enc_production
+  }
+
   await GetStorage.init();
 }
