@@ -27,7 +27,7 @@ class BaseRepo {
                     clientSecret: clientSecret));
             if (value != null) {
               dataStorage.setCredentials(value);
-              goToAndRemove(screen: Get.currentRoute);
+              goToAndRemoveAll(screen: Get.currentRoute);
             }
           } else if (response?.error == InvalidUserToken) {
             Get.bottomSheet(
