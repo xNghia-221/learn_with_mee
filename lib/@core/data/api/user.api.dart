@@ -22,11 +22,30 @@ class UserApi extends BaseConnect {
   }
 
   Future<dynamic> login({required LoginRequest loginRequest}) async {
-    return await postRequestDynamic('/api/users/login', body: loginRequest.toJson());
+    return await postRequestDynamic('/api/users/login',
+        body: loginRequest.toJson());
   }
 
   Future<BaseResponse?> getVersion() async {
     return await getResponse('/api/app-version');
+  }
+
+  Future<BaseResponse?> followTeacher(
+      {required String id, required int isFollow}) async {
+    final data = {
+      "teacher_id": id,
+      "follow": isFollow,
+    };
+    return await postRequest('/api/teachers/follow', body: data);
+  }
+
+  Future<BaseResponse?> likeVideoOfTeacher(
+      {required String idVideo, required int isLike}) async {
+    final data = {
+      "video_id": idVideo,
+      "like": isLike,
+    };
+    return await postRequest('/api/video/likes', body: data);
   }
 
 // Future<BaseResponse> postImages(List<String> image) {

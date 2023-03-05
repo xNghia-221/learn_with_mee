@@ -9,13 +9,15 @@ class VideoPlayerItem extends GetWidget<VideoItemController> {
   final DataVideoDetail? dataVideoDetail;
   final int snappedPageIndex;
   final int currentIndex;
+  final Function(VideoItemController) callBack;
 
-  const VideoPlayerItem({
-    Key? key,
-    required this.dataVideoDetail,
-    required this.snappedPageIndex,
-    required this.currentIndex,
-  }) : super(key: key);
+  const VideoPlayerItem(
+      {Key? key,
+      required this.dataVideoDetail,
+      required this.snappedPageIndex,
+      required this.currentIndex,
+      required this.callBack})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class VideoPlayerItem extends GetWidget<VideoItemController> {
         future: controller.initializeVideoPlayer,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
+            callBack(controller);
             return VideoPlayer(controller.videoController);
           } else {
             return Container();

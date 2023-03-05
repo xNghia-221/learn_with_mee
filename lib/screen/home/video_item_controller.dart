@@ -33,7 +33,15 @@ class VideoItemController extends GetxController {
     super.onReady();
   }
 
-  showLoading() {
+  showLoadingUI() {
     showLoading();
+  }
+
+  pause() async {
+    await videoController.pause();
+  }
+
+  play() async {
+    await videoController.play();
   }
 }

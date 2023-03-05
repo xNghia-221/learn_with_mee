@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -20,20 +21,20 @@ class LoginScreen extends GetView<LoginController> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        leading: const Icon(
+        leading: Icon(
           Icons.cancel_outlined,
           color: Colors.black,
-          size: 28,
+          size: 28.w,
         ).onTap(() {
           goToAndRemoveAll(screen: ROUTER_HOME);
         }),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 10.0),
+            padding: EdgeInsets.only(right: 10.w),
             child: Icon(
               CupertinoIcons.question_circle,
               color: Colors.black,
-              size: 28,
+              size: 28.sp,
             ),
           ),
         ],
@@ -51,20 +52,20 @@ class LoginScreen extends GetView<LoginController> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: Colors.black,
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
                     ),
-              )).pOnly(top: 40),
+              )).pOnly(top: 40.h),
               SelectionArea(
                   child: Text(
                 getLocalize(descriptionLogin, args: []),
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       color: Colors.black,
-                      fontSize: 13,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.normal,
                     ),
-              )).paddingSymmetric(horizontal: 30, vertical: 20),
+              )).paddingSymmetric(horizontal: 30.w, vertical: 20.h),
               Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 color: const Color(0xFFF5F5F5),
@@ -78,14 +79,14 @@ class LoginScreen extends GetView<LoginController> {
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: Colors.black,
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.bold,
                         ),
                   ),
                   tileColor: const Color(0xFFF5F5F5),
                   dense: false,
                 ),
-              ).pOnly(left: 20, top: 10, right: 20).onTap(() {
+              ).pOnly(left: 20.w, top: 10.h, right: 20.w).onTap(() {
                 controller.handleSignInFacebook();
               }),
               Card(
@@ -99,20 +100,20 @@ class LoginScreen extends GetView<LoginController> {
                     getLocalize(googleLogin, args: []),
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: Colors.black,
-                          fontSize: 12,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.bold,
                         ),
                   ),
                   tileColor: const Color(0xFFF5F5F5),
                   dense: false,
                 ),
-              ).paddingSymmetric(horizontal: 20).onTap(() {
+              ).paddingSymmetric(horizontal: 20.w).onTap(() {
                 controller.handleSignInGoogle();
               }),
               const Spacer(),
               Container(
                 width: double.infinity,
-                height: 60,
+                height: 60.h,
                 decoration: const BoxDecoration(
                   color: Color(0x48CDCECE),
                 ),
@@ -127,7 +128,7 @@ class LoginScreen extends GetView<LoginController> {
                         'Already have an account ?',
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: Colors.black,
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.normal,
                             ),
                       )),
@@ -141,7 +142,7 @@ class LoginScreen extends GetView<LoginController> {
                               .bodyText1!
                               .copyWith(
                                 color: const Color.fromARGB(255, 255, 136, 0),
-                                fontSize: 14,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                         ),

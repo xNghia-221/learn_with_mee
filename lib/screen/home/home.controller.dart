@@ -5,6 +5,7 @@ import 'package:learn_with_mee/@core/data/repo/model/data_model.dart';
 import 'package:learn_with_mee/@core/data/repo/model/data_video_detail_model.dart';
 import 'package:learn_with_mee/@core/data/repo/video_repo.dart';
 import 'package:learn_with_mee/screen/home/home.screen.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../@share/constants/value.constant.dart';
 import '../../@share/utils/util.dart';
@@ -36,10 +37,12 @@ class HomeController extends GetxController
 
   final videos = Data().obs;
 
+  late VideoPlayerController videoController;
+
   String? get thumbnailFile => _thumbnailFile.value;
 
   PageController pageControllerMainVideoVertical =
-  PageController(initialPage: 0, viewportFraction: 1);
+      PageController(initialPage: 0, viewportFraction: 1);
 
   bool isOnPageTurning = false;
   int current = 0;

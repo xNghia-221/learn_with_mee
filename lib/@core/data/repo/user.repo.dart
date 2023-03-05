@@ -7,8 +7,6 @@ import 'package:learn_with_mee/@core/data/repo/model/user.dart';
 import 'package:learn_with_mee/@core/data/repo/response/base.response.dart';
 
 import '../api/user.api.dart';
-import 'model/loginInfo.model.dart';
-import 'model/userInfo.model.dart';
 
 class UserRepo extends BaseRepo {
   final UserApi userApi;
@@ -36,5 +34,11 @@ class UserRepo extends BaseRepo {
   Future<BaseResponse?> getVersion() async {
     var res = await userApi.getVersion();
     return res?.status != false ? res : errorApi(response: res);
+  }
+
+  Future<BaseResponse?> followTeacher(
+      {required String teacherId, required int isFollow}) async {
+    var res = await userApi.followTeacher(id: teacherId, isFollow: isFollow);
+    return res?.message == null ? res : errorApi(response: res);
   }
 }
