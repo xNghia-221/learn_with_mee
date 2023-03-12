@@ -13,6 +13,9 @@ class ProfileController extends GetxController {
 
   String? teacherId;
 
+  var userRepo = Get.find<UserRepo>();
+  var videoRepo = Get.find<VideoRepo>();
+
   @override
   void onReady() {
     super.onReady();
@@ -23,7 +26,6 @@ class ProfileController extends GetxController {
   _getProfile() async {
     if (teacherId.isNotEmptyAndNotNull) {
       showLoading();
-      var userRepo = Get.find<UserRepo>();
       var res = await userRepo.getProfile(id: teacherId!);
       hideLoading();
       user.value = res;
@@ -36,7 +38,6 @@ class ProfileController extends GetxController {
 
   _getVideoOfTeacher({required String id, int page = 1}) async {
     showLoading();
-    var videoRepo = Get.find<VideoRepo>();
     var data =
         await videoRepo.getListVideoOfTeacher(LIMIT_PAGE, page, teacherId: id);
     hideLoading();
@@ -46,7 +47,6 @@ class ProfileController extends GetxController {
   Future<void> followTeacher(
       {required String teacherId, required int isFollow}) async {
     showLoading();
-    var userRepo = Get.find<UserRepo>();
     await userRepo.followTeacher(teacherId: teacherId, isFollow: isFollow);
     await _getProfile();
   }

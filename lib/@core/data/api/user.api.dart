@@ -45,14 +45,6 @@ class UserApi extends BaseConnect {
       "video_id": idVideo,
       "like": isLike,
     };
-    return await postRequest('/api/video/likes', body: data);
+    return await postRequest('/api/videos/likes', body: data);
   }
-
-// Future<BaseResponse> postImages(List<String> image) {
-//   final form = FormData({
-//     'file': MultipartFile(image, filename: 'avatar.png'),
-//     'otherFile': MultipartFile(image, filename: 'cover.png'),
-//   });
-//   return postRequest('abc/', body: form);
-// }
 }

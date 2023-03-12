@@ -1,11 +1,8 @@
 import 'dart:math' as math;
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:learn_with_mee/screen/home/home.controller.dart';
 import 'package:learn_with_mee/screen/video_related_screen/video_related_controller.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -131,7 +128,29 @@ class VideoRelatedState extends State<VideoRelatedScreen>
                                       ),
                                     ),
                                   ),
-                                  buildItemInteractive(data),
+                                  buildItemInteractive(
+                                      dataVideoDetail: data,
+                                      homeController: homeController,
+                                      onHandleLikeVideo: (dataVideoDetailNew) {
+                                        homeController.updateListFavoriteTemp(
+                                          videoId: dataVideoDetailNew?.id ?? "",
+                                          dataVideoDetail: dataVideoDetailNew
+                                                      ?.isLiked ==
+                                                  0
+                                              ? dataVideoDetailNew?.copyWith(
+                                                  isLiked: 1,
+                                                  numberOfLikes:
+                                                      dataVideoDetailNew!
+                                                              .numberOfLikes! +
+                                                          1)
+                                              : dataVideoDetailNew?.copyWith(
+                                                  isLiked: 0,
+                                                  numberOfLikes:
+                                                      dataVideoDetailNew!
+                                                              .numberOfLikes! -
+                                                          1),
+                                        );
+                                      }),
                                 ],
                               ),
                             ),
@@ -169,7 +188,10 @@ class VideoRelatedState extends State<VideoRelatedScreen>
     );
   }
 
-  buildItemInteractive(DataVideoDetail? dataVideoDetail) {
+  buildItemInteractive(
+      {DataVideoDetail? dataVideoDetail,
+      required Function(DataVideoDetail? dataVideoDetail) onHandleLikeVideo,
+      required HomeController homeController}) {
     return Container(
       width: 100,
       margin: EdgeInsets.only(top: heightScreen(percent: 100) / 5),
@@ -178,22 +200,38 @@ class VideoRelatedState extends State<VideoRelatedScreen>
           const Spacer(),
           Expanded(
             flex: 1,
-            child: Column(
-              children: [
-                Icon(
-                  Icons.favorite,
-                  size: 40.sp,
-                  color: Colors.white,
-                ),
-                SizedBox(height: 7.h),
-                Text(
-                  "${dataVideoDetail?.numberOfLikes ?? 0}",
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    color: Colors.white,
+            child: Obx(
+              () => Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => onHandleLikeVideo(homeController
+                        .listFavoriteVerticalTemp[dataVideoDetail?.id]),
+                    child: Icon(
+                      homeController
+                                  .listFavoriteVerticalTemp[dataVideoDetail?.id]
+                                  ?.isLiked ==
+                              1
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_border_rounded,
+                      size: 40.w,
+                      color: homeController
+                                  .listFavoriteVerticalTemp[dataVideoDetail?.id]
+                                  ?.isLiked ==
+                              1
+                          ? Colors.green
+                          : Colors.white,
+                    ),
                   ),
-                )
-              ],
+                  SizedBox(height: 7.h),
+                  Text(
+                    "${homeController.listFavoriteVerticalTemp[dataVideoDetail?.id]?.numberOfLikes ?? 0}",
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           Expanded(

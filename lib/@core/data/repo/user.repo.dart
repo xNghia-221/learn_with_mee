@@ -41,4 +41,11 @@ class UserRepo extends BaseRepo {
     var res = await userApi.followTeacher(id: teacherId, isFollow: isFollow);
     return res?.message == null ? res : errorApi(response: res);
   }
+
+  Future<BaseResponse?> likeVideoOfTeacher(
+      {required String videoId, required int isLike}) async {
+    var res =
+        await userApi.likeVideoOfTeacher(idVideo: videoId, isLike: isLike);
+    return res?.message == null ? res : errorApi(response: res);
+  }
 }

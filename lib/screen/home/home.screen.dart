@@ -42,6 +42,7 @@ class HomeScreenState extends State<HomeScreen>
                   onRefresh: () async {
                     controller.listVideo.clear();
                     controller.listVideoTemp.clear();
+                    controller.updateListFavoriteTemp(needClear: true);
                     await controller.getVideoList();
                   }),
               RefreshIndicator(
@@ -233,7 +234,28 @@ class HomeScreenState extends State<HomeScreen>
                                   ),
                                 ),
                               ),
-                              buildItemInteractive(data),
+                              buildItemInteractive(
+                                  dataVideoDetail: data,
+                                  homeController: controller,
+                                  onHandleLikeVideo: (dataVideoDetailNew) {
+                                    controller.updateListFavoriteTemp(
+                                      videoId: dataVideoDetailNew?.id ?? "",
+                                      dataVideoDetail:
+                                          dataVideoDetailNew?.isLiked == 0
+                                              ? dataVideoDetailNew?.copyWith(
+                                                  isLiked: 1,
+                                                  numberOfLikes:
+                                                      dataVideoDetailNew!
+                                                              .numberOfLikes! +
+                                                          1)
+                                              : dataVideoDetailNew?.copyWith(
+                                                  isLiked: 0,
+                                                  numberOfLikes:
+                                                      dataVideoDetailNew!
+                                                              .numberOfLikes! -
+                                                          1),
+                                    );
+                                  }),
                             ],
                           ),
                         ),
@@ -247,7 +269,11 @@ class HomeScreenState extends State<HomeScreen>
         ));
   }
 
-  buildItemInteractive(DataVideoDetail? dataVideoDetail) {
+  buildItemInteractive({
+    DataVideoDetail? dataVideoDetail,
+    required Function(DataVideoDetail? dataVideoDetail) onHandleLikeVideo,
+    required HomeController homeController,
+  }) {
     return Container(
       width: 100.w,
       margin: EdgeInsets.only(top: heightScreen(percent: 100) / 5),
@@ -256,22 +282,37 @@ class HomeScreenState extends State<HomeScreen>
           const Spacer(),
           Expanded(
             flex: 1,
-            child: Column(
-              children: [
-                Icon(
-                  Icons.favorite,
-                  size: 40.w,
-                  color: Colors.white,
-                ),
-                SizedBox(height: 7.h),
-                Text(
-                  "${dataVideoDetail?.numberOfLikes ?? 0}",
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    color: Colors.white,
+            child: Obx(
+              () => Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => onHandleLikeVideo(controller
+                        .listFavoriteVerticalTemp[dataVideoDetail?.id]),
+                    child: Icon(
+                      controller.listFavoriteVerticalTemp[dataVideoDetail?.id]
+                                  ?.isLiked ==
+                              1
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_border_rounded,
+                      size: 40.w,
+                      color: controller
+                                  .listFavoriteVerticalTemp[dataVideoDetail?.id]
+                                  ?.isLiked ==
+                              1
+                          ? Colors.green
+                          : Colors.white,
+                    ),
                   ),
-                )
-              ],
+                  SizedBox(height: 7.h),
+                  Text(
+                    "${controller.listFavoriteVerticalTemp[dataVideoDetail?.id]?.numberOfLikes ?? 0}",
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           Expanded(

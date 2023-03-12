@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:learn_with_mee/@core/data/repo/model/data_model.dart';
 import 'package:learn_with_mee/@core/data/repo/model/data_video_detail_model.dart';
@@ -7,6 +6,7 @@ import 'package:learn_with_mee/@core/data/repo/video_repo.dart';
 import 'package:learn_with_mee/screen/home/home.screen.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../@core/data/repo/user.repo.dart';
 import '../../@share/constants/value.constant.dart';
 import '../../@share/utils/util.dart';
 
@@ -46,6 +46,11 @@ class HomeController extends GetxController
 
   bool isOnPageTurning = false;
   int current = 0;
+
+  RxMap<String, DataVideoDetail?> listFavoriteVerticalTemp =
+      <String, DataVideoDetail?>{}.obs;
+
+  var userRepo = Get.find<UserRepo>();
 
   @override
   void onInit() {
@@ -124,6 +129,12 @@ class HomeController extends GetxController
     listVideo.value.addAll(data.data ?? []);
     listVideo.refresh();
     listVideoTemp = listVideo.value;
+    for (var element in listVideo.value) {
+      if (!listFavoriteVerticalTemp.containsKey(element?.id)) {
+        updateListFavoriteTemp(
+            videoId: element?.id ?? "", dataVideoDetail: element);
+      }
+    }
     hideLoading();
   }
 
@@ -157,5 +168,20 @@ class HomeController extends GetxController
     }
     lastPageTeacherVideo = 1;
     currentPageTeacherVideo = 1;
+  }
+
+  void updateListFavoriteTemp({
+    String videoId = "",
+    DataVideoDetail? dataVideoDetail,
+    bool needClear = false,
+  }) {
+    if (needClear) {
+      // Clear state when push or pop route
+      listFavoriteVerticalTemp = <String, DataVideoDetail?>{}.obs;
+    } else {
+      listFavoriteVerticalTemp[videoId] = dataVideoDetail;
+      userRepo.likeVideoOfTeacher(
+          videoId: videoId, isLike: dataVideoDetail?.isLiked ?? 0);
+    }
   }
 }

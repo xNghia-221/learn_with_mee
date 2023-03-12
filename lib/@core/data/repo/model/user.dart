@@ -16,7 +16,7 @@ class User {
   String? introduction;
   int? numberOfFollowers;
   int? numberOfLikes;
-  int? following;
+  int? isFollowed;
 
   User(
       {this.id,
@@ -36,7 +36,7 @@ class User {
       this.introduction,
       this.numberOfFollowers,
       this.numberOfLikes,
-      this.following});
+      this.isFollowed});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -56,7 +56,7 @@ class User {
     introduction = json['introduction'];
     numberOfFollowers = json['number_of_followers'];
     numberOfLikes = json['number_of_likes'];
-    following = json['is_following'];
+    isFollowed = json['is_followed'];
   }
 
   User mapLink(String? url) {
@@ -83,40 +83,7 @@ class User {
     data['introduction'] = introduction;
     data['number_of_followers'] = numberOfFollowers;
     data['number_of_likes'] = numberOfLikes;
-    data['is_following'] = following;
+    data['is_followed'] = isFollowed;
     return data;
   }
 }
-/*
-import 'package:freezed_annotation/freezed_annotation.dart';
-part 'user.freezed.dart';
-part 'user.g.dart';
-
-@freezed
-class User with _$User {
-
-  factory User({
-    @JsonKey(name:'id') String? id,
-    @JsonKey(name:'name') String? name,
-    @JsonKey(name:'email') String? email,
-    @JsonKey(name:'email_verified_at') dynamic emailVerifiedAt,
-    @JsonKey(name:'dob') String? dob,
-    @JsonKey(name:'gender') String? gender,
-    @JsonKey(name:'role') String? role,
-    @JsonKey(name:'avatar') String? avatar,
-    @JsonKey(name:'status') String? status,
-    @JsonKey(name:'deleted_at') String? deletedAt,
-    @JsonKey(name:'created_at') String? createdAt,
-    @JsonKey(name:'updated_at') String? updatedAt,
-    @JsonKey(name:'degree') String? degree,
-    @JsonKey(name:'place_of_work') String? placeOfWork,
-    @JsonKey(name:'introduction') String? introduction,
-    @JsonKey(name:'number_of_followers') int? numberOfFollowers,
-    @JsonKey(name:'number_of_likes') int? numberOfLikes,
-    @JsonKey(name:'is_following') int? following,
-  })= _User;
-
-  factory User.fromJson(Map<String, dynamic> json) =>
-      _$UserFromJson(json);
-
-}*/

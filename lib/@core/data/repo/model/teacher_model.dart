@@ -7,6 +7,7 @@ class Teacher {
   String? avatar;
   String? status;
   String? degree;
+  int? isFollowed;
 
   Teacher(
       {this.id,
@@ -16,7 +17,8 @@ class Teacher {
       this.gender,
       this.avatar,
       this.status,
-      this.degree});
+      this.degree,
+      this.isFollowed});
 
   Teacher.fromJson(Map<String, dynamic> json, String? baseUrlVideo) {
     id = json['id'];
@@ -28,6 +30,7 @@ class Teacher {
     avatar = "$baseUrlVideo$avatar";
     status = json['status'];
     degree = json['degree'];
+    isFollowed = json['is_followed'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,27 +43,7 @@ class Teacher {
     data['avatar'] = avatar;
     data['status'] = status;
     data['degree'] = degree;
+    data['is_followed'] = isFollowed;
     return data;
   }
 }
-
-/*import 'package:freezed_annotation/freezed_annotation.dart';
-part 'teacher_model.freezed.dart';
-part 'teacher_model.g.dart';
-
-@freezed
-class Teacher with _$Teacher {
-  factory Teacher({
-    @JsonKey(name:'id') String? id,
-    @JsonKey(name:'name') String? name,
-    @JsonKey(name:'email') String? email,
-    @JsonKey(name:'dob') String? dob,
-    @JsonKey(name:'gender') String? gender,
-    @JsonKey(name:'avatar') String? avatar,
-    @JsonKey(name:'status') String? status,
-    @JsonKey(name:'degree') String? degree,
-  })= _Teacher;
-
-  factory Teacher.fromJson(Map<String, dynamic> json) =>
-      _$TeacherFromJson(json);
-}*/

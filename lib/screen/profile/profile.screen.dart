@@ -145,12 +145,12 @@ class ProfileScreen extends GetWidget<ProfileController> {
                               await controller.followTeacher(
                                   teacherId: controller.user.value?.id ?? "",
                                   isFollow:
-                                      controller.user.value?.following == 1
+                                      controller.user.value?.isFollowed == 1
                                           ? 0
                                           : 1);
                             },
                             child: Text(
-                              controller.user.value?.following == 1
+                              controller.user.value?.isFollowed == 1
                                   ? "Hủy theo dõi"
                                   : "Theo dõi",
                               style: TextStyle(

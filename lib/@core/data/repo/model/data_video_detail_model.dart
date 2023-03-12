@@ -17,23 +17,27 @@ class DataVideoDetail {
   Teacher? teacher;
   String? urlVideoPlay;
   String? urlThumbnail;
+  int? isLiked;
 
-  DataVideoDetail(
-      {this.id,
-      this.teacherId,
-      this.url,
-      this.poster,
-      this.title,
-      this.description,
-      this.hashtag,
-      this.numberOfComments,
-      this.numberOfLikes,
-      this.status,
-      this.deletedAt,
-      this.createdAt,
-      this.updatedAt,
-      this.urlThumbnail,
-      this.teacher});
+  DataVideoDetail({this.id,
+    this.teacherId,
+    this.url,
+    this.poster,
+    this.title,
+    this.description,
+    this.hashtag,
+    this.numberOfComments,
+    this.numberOfLikes,
+    this.status,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.urlVideoPlay,
+    this.urlThumbnail,
+    this.teacher,
+    this.isLiked
+
+  });
 
   DataVideoDetail.fromJson(Map<String, dynamic> json, String? baseUrlVideo) {
     id = json['id'];
@@ -49,12 +53,13 @@ class DataVideoDetail {
     deletedAt = json['deleted_at'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    isLiked = json['is_liked'];
     teacher = json['teacher'] != null
         ? Teacher.fromJson(json['teacher'], baseUrlVideo)
         : null;
     urlVideoPlay = "$baseUrlVideo$url";
     urlThumbnail =
-        poster?.contains("http") == true ? poster : "$baseUrlVideo$poster";
+    poster?.contains("http") == true ? poster : "$baseUrlVideo$poster";
   }
 
   Map<String, dynamic> toJson() {
@@ -72,38 +77,46 @@ class DataVideoDetail {
     data['deleted_at'] = deletedAt;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    data['is_liked'] = isLiked;
     if (teacher != null) {
       data['teacher'] = teacher!.toJson();
     }
     return data;
   }
+
+  DataVideoDetail copyWith({String? id,
+    String? teacherId,
+    String? url,
+    String? poster,
+    String? title,
+    String? description,
+    String? hashtag,
+    int? numberOfComments,
+    int? numberOfLikes,
+    String? status,
+    String? deletedAt,
+    String? createdAt,
+    String? updatedAt,
+    Teacher? teacher,
+    String? urlThumbnail,
+    int? isLiked,}) {
+    return DataVideoDetail(
+      id: id ?? this.id,
+      url: url ?? this.url,
+      teacherId: teacherId ?? this.teacherId,
+      poster: poster ?? this.poster,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      hashtag: hashtag ?? this.hashtag,
+      numberOfLikes: numberOfLikes ?? this.numberOfLikes,
+      numberOfComments: numberOfComments ?? this.numberOfComments,
+      status: status ?? this.status,
+      deletedAt: deletedAt ?? this.deletedAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      teacher: teacher ?? this.teacher,
+      urlThumbnail: urlThumbnail ?? this.urlThumbnail,
+      isLiked: isLiked ?? this.isLiked,
+    );
+  }
 }
-
-/*import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'data_video_detail_model.freezed.dart';
-
-part 'data_video_detail_model.g.dart';
-
-@freezed
-class DataVideoDetail with _$DataVideoDetail {
-  factory DataVideoDetail({
-    @JsonKey(name: 'id') String? id,
-    @JsonKey(name: 'teacher_id') String? teacherId,
-    @JsonKey(name: 'url') String? url,
-    @JsonKey(name: 'poster') String? poster,
-    @JsonKey(name: 'title') String? title,
-    @JsonKey(name: 'description') String? description,
-    @JsonKey(name: 'hashtag') String? hashtag,
-    @JsonKey(name: 'number_of_comments') int? numberOfComments,
-    @JsonKey(name: 'number_of_likes') int? numberOfLikes,
-    @JsonKey(name: 'status') String? status,
-    @JsonKey(name: 'deleted_at') String? deletedAt,
-    @JsonKey(name: 'created_at') String? createdAt,
-    @JsonKey(name: 'updated_at') String? updatedAt,
-    @JsonKey(name: 'teacher') Teacher? teacher,
-  }) = _DataVideoDetail;
-
-  factory DataVideoDetail.fromJson(Map<String, dynamic> json) =>
-      _$DataVideoDetailFromJson(json);
-}*/
