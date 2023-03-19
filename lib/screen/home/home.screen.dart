@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,7 @@ import 'package:learn_with_mee/@share/constants/value.constant.dart';
 import 'package:learn_with_mee/screen/home/video_item.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../@share/utils/circle_horizontal_indicator.dart';
+import '../../@share/style/colors.dart';
 import '../../@share/utils/util.dart';
 import '../../widget/circle_animation.dart';
 import 'home.controller.dart';
@@ -45,45 +46,46 @@ class HomeScreenState extends State<HomeScreen>
                     controller.updateListFavoriteTemp(needClear: true);
                     await controller.getVideoList();
                   }),
-              RefreshIndicator(
-                  child: buildListVideo(1),
-                  onRefresh: () async {
-                    controller.clearDataTeacherVideo();
-                    await controller.getVideoOfTeacher(
-                        id: controller.idTeacher);
-                  })
+              buildUIProfile(),
+              // RefreshIndicator(
+              //     child: buildListVideo(1),
+              //     onRefresh: () async {
+              //       controller.clearDataTeacherVideo();
+              //       await controller.getVideoOfTeacher(
+              //           id: controller.idTeacher);
+              //     })
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 30.h),
-            child: Wrap(
-              children: [
-                TabBar(
-                  controller: controller.pageControllerHorizontal,
-                  indicator: CircleHorizontalTabIndicator(
-                      radius: 4, color: Colors.white),
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Colors.black,
-                  tabs: [
-                    Text(
-                      "Cho bạn",
-                      style: TextStyle(
-                          fontSize: 20.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      "Video giáo viên",
-                      style: TextStyle(
-                          fontSize: 20.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(top: 30.h),
+          //   child: Wrap(
+          //     children: [
+          //       TabBar(
+          //         controller: controller.pageControllerHorizontal,
+          //         indicator: CircleHorizontalTabIndicator(
+          //             radius: 4, color: Colors.white),
+          //         labelColor: Colors.white,
+          //         unselectedLabelColor: Colors.black,
+          //         tabs: [
+          //           Text(
+          //             "Cho bạn",
+          //             style: TextStyle(
+          //                 fontSize: 20.sp,
+          //                 color: Colors.white,
+          //                 fontWeight: FontWeight.bold),
+          //           ),
+          //           // Text(
+          //           //   "Video giáo viên",
+          //           //   style: TextStyle(
+          //           //       fontSize: 20.sp,
+          //           //       color: Colors.white,
+          //           //       fontWeight: FontWeight.bold),
+          //           // )
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
@@ -112,6 +114,10 @@ class HomeScreenState extends State<HomeScreen>
   }
 
   buildListVideo(int indexPageHorizontal) {
+    final controllerPageView = controller.isShouldReInitPageView
+        ? controller.pageControllerMainVideoVertical
+        : PageController(initialPage: _snappedPageIndex, viewportFraction: 1);
+
     return Obx(() => Stack(
           alignment: Alignment.topCenter,
           children: [
@@ -120,7 +126,7 @@ class HomeScreenState extends State<HomeScreen>
               itemCount: indexPageHorizontal == 0
                   ? controller.listVideo.value.length
                   : controller.listTeacherVideo.value.length,
-              controller: controller.pageControllerMainVideoVertical,
+              controller: controllerPageView,
               scrollDirection: Axis.vertical,
               onPageChanged: (page) {
                 setState(() {
@@ -148,11 +154,12 @@ class HomeScreenState extends State<HomeScreen>
                     debugPrint(
                         "INFO INNER: ${controller.pageControllerHorizontal.index}, ${controller.isScrollNextPage}");
                     controller.isScrollNextPage = true;
-                    controller.getVideoOfTeacher(id: controller.idTeacher);
+                    controller.isShouldReInitPageView = true;
+                    controller.getProfile(teacherId: controller.idTeacher);
                   } else if (controller.pageControllerHorizontal.index == 0) {
                     controller.clearDataTeacherVideo();
                     controller.isScrollNextPage = false;
-                    controller.setOldData();
+                    //controller.setOldData();
                   }
                 });
                 controller.videoUrl = data.urlVideoPlay ?? "";
@@ -185,9 +192,9 @@ class HomeScreenState extends State<HomeScreen>
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
                                         data?.teacher?.name ?? "",
@@ -199,7 +206,7 @@ class HomeScreenState extends State<HomeScreen>
                                       ),
                                       Padding(
                                         padding:
-                                            EdgeInsets.symmetric(vertical: 4.h),
+                                        EdgeInsets.symmetric(vertical: 4.h),
                                         child: Text(
                                           data?.title ?? "",
                                           style: TextStyle(
@@ -212,7 +219,7 @@ class HomeScreenState extends State<HomeScreen>
                                         children: [
                                           Padding(
                                             padding:
-                                                EdgeInsets.only(right: 4.w),
+                                            EdgeInsets.only(right: 4.w),
                                             child: const Icon(
                                               Icons.music_note,
                                               color: Colors.white,
@@ -241,19 +248,19 @@ class HomeScreenState extends State<HomeScreen>
                                     controller.updateListFavoriteTemp(
                                       videoId: dataVideoDetailNew?.id ?? "",
                                       dataVideoDetail:
-                                          dataVideoDetailNew?.isLiked == 0
-                                              ? dataVideoDetailNew?.copyWith(
-                                                  isLiked: 1,
-                                                  numberOfLikes:
-                                                      dataVideoDetailNew!
-                                                              .numberOfLikes! +
-                                                          1)
-                                              : dataVideoDetailNew?.copyWith(
-                                                  isLiked: 0,
-                                                  numberOfLikes:
-                                                      dataVideoDetailNew!
-                                                              .numberOfLikes! -
-                                                          1),
+                                      dataVideoDetailNew?.isLiked == 0
+                                          ? dataVideoDetailNew?.copyWith(
+                                          isLiked: 1,
+                                          numberOfLikes:
+                                          dataVideoDetailNew!
+                                              .numberOfLikes! +
+                                              1)
+                                          : dataVideoDetailNew?.copyWith(
+                                          isLiked: 0,
+                                          numberOfLikes:
+                                          dataVideoDetailNew!
+                                              .numberOfLikes! -
+                                              1),
                                     );
                                   }),
                             ],
@@ -375,6 +382,222 @@ class HomeScreenState extends State<HomeScreen>
           }),
         ],
       ),
+    );
+  }
+
+  buildUIProfile() {
+    return Obx(
+      () => WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: SafeArea(
+          child: Container(
+            color: Colors.white,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            const Icon(Icons.arrow_back_ios).p20().onTap(() {
+                              controller.pageControllerHorizontal.animateTo(0);
+                            }),
+                            Center(
+                              child: Text(
+                                controller.user.value?.name ?? "",
+                                style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ).p20(),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ClipOval(
+                              child: CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl: controller.user.value?.avatar ?? "",
+                                height: 100.w,
+                                width: 100.w,
+                                placeholder: (context, url) =>
+                                    const CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(
+                                  Icons.error,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  controller.user.value?.numberOfFollowers
+                                          ?.toString() ??
+                                      0.toString(),
+                                  style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 5.h),
+                                Text(
+                                  'Lượt theo dõi',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              color: AppColors.grayLight,
+                              width: 1.w,
+                              height: 15.h,
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 15.w,
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  controller.user.value?.numberOfLikes
+                                          ?.toString() ??
+                                      0.toString(),
+                                  style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 5.h),
+                                Text(
+                                  'Lượt thích video',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Container(
+                          width: 140.w,
+                          height: 47.h,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            border: Border.all(
+                              color: Colors.black12,
+                            ),
+                          ),
+                          child: Center(
+                            child: InkWell(
+                              onTap: () async {
+                                await controller.followTeacher(
+                                    teacherId: controller.user.value?.id ?? "",
+                                    isFollow:
+                                        controller.user.value?.isFollowed == 1
+                                            ? 0
+                                            : 1);
+                              },
+                              child: Text(
+                                controller.user.value?.isFollowed == 1
+                                    ? "Hủy theo dõi"
+                                    : "Theo dõi",
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Text(controller.user.value?.introduction ?? "",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                            )).pOnly(top: 15.h, bottom: 25.h),
+                        // video list
+                        Obx(() => GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount:
+                                controller.videos.value?.data?.length ?? 0,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio: 1,
+                              crossAxisSpacing: 5,
+                            ),
+                            itemBuilder: (context, index) {
+                              var video = controller.videos.value?.data?[index];
+                              return _itemVideo(
+                                video: video,
+                                index: index,
+                                onTapItemVideo: (indexVideo) {
+                                  goTo(screen: ROUTER_VIDEO_RELATED, argument: {
+                                    LIST_VIDEO_DETAIL: controller.videos.value,
+                                    INDEX_VIDEO: indexVideo
+                                  });
+                                },
+                              );
+                            })),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _itemVideo(
+      {required DataVideoDetail? video,
+      required Function(int index) onTapItemVideo,
+      required int index}) {
+    return InkWell(
+      onTap: () => onTapItemVideo(index),
+      child: ZStack([
+        Positioned.fill(
+          child: CachedNetworkImage(
+            errorWidget: (context, url, error) =>
+                Container(color: Colors.grey, child: Icon(Icons.error)),
+            imageUrl: video?.urlThumbnail ?? "",
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned(
+          bottom: 0,
+          child: HStack([
+            const Icon(Icons.play_arrow_outlined, color: Colors.white)
+                .pOnly(right: 5),
+            Text(video?.numberOfLikes?.toString() ?? "0",
+                style: TextStyle(
+                  color: AppColors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ))
+          ]),
+        )
+      ]),
     );
   }
 }

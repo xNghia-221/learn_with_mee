@@ -63,9 +63,14 @@ dependencies:
   font_awesome_flutter: 10.3.0
   flutter_svg: ^1.1.6
   package_info_plus: ^1.0.6
+  flutter_launcher_icons: ^0.12.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/launch_icon.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

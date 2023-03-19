@@ -74,7 +74,7 @@ class LoginController extends GetxController with WidgetsBindingObserver {
                           email: dataFB.email,
                           name: dataFB.name));
                   if (value != null) {
-                    dataStorage.setToken(value);
+                    dataStorage.setToken(value.toJson());
                     goToAndRemoveAll(screen: ROUTER_HOME);
                   }
                 })
@@ -97,8 +97,8 @@ class LoginController extends GetxController with WidgetsBindingObserver {
             avatar: gsAccount.photoUrl,
             name: gsAccount.displayName));
     if (value != null) {
-      dataStorage.setToken(value);
-      if(Get.isBottomSheetOpen == true) {
+      dataStorage.setToken(value.toJson());
+      if (Get.isBottomSheetOpen == true) {
         Get.back();
       }
       goToAndRemoveAll(screen: ROUTER_HOME);
