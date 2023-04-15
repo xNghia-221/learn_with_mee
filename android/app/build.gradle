@@ -42,8 +42,8 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
 
-        development.resources.srcDirs = ['src/development/']
-        production.resources.srcDirs = ['src/production/']
+        development.resources.srcDirs = ['src/development/res']
+        production.resources.srcDirs = ['src/production/res']
     }
 
     defaultConfig {

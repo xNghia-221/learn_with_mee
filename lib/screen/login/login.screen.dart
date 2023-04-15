@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:learn_with_mee/@core/router/pages.dart';
 import 'package:learn_with_mee/@share/constants/language.constant.dart';
@@ -66,29 +65,29 @@ class LoginScreen extends GetView<LoginController> {
                       fontWeight: FontWeight.normal,
                     ),
               )).paddingSymmetric(horizontal: 30.w, vertical: 20.h),
-              Card(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                color: const Color(0xFFF5F5F5),
-                child: ListTile(
-                  leading: const FaIcon(
-                    FontAwesomeIcons.facebook,
-                    color: Color(0xFF3275FA),
-                  ),
-                  title: Text(
-                    getLocalize(faceBookLogin, args: []),
-                    textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: Colors.black,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  tileColor: const Color(0xFFF5F5F5),
-                  dense: false,
-                ),
-              ).pOnly(left: 20.w, top: 10.h, right: 20.w).onTap(() {
-                controller.handleSignInFacebook();
-              }),
+              // Card(
+              //   clipBehavior: Clip.antiAliasWithSaveLayer,
+              //   color: const Color(0xFFF5F5F5),
+              //   child: ListTile(
+              //     leading: const FaIcon(
+              //       FontAwesomeIcons.facebook,
+              //       color: Color(0xFF3275FA),
+              //     ),
+              //     title: Text(
+              //       getLocalize(faceBookLogin, args: []),
+              //       textAlign: TextAlign.start,
+              //       style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              //             color: Colors.black,
+              //             fontSize: 12.sp,
+              //             fontWeight: FontWeight.bold,
+              //           ),
+              //     ),
+              //     tileColor: const Color(0xFFF5F5F5),
+              //     dense: false,
+              //   ),
+              // ).pOnly(left: 20.w, top: 10.h, right: 20.w).onTap(() {
+              //   controller.handleSignInFacebook();
+              // }),
               Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 color: const Color(0xFFF5F5F5),

@@ -52,7 +52,7 @@ class LoginController extends GetxController with WidgetsBindingObserver {
       }
     } catch (error) {
       hideLoading();
-      print(error);
+      debugPrint("$error");
     }
   }
 
@@ -81,7 +81,7 @@ class LoginController extends GetxController with WidgetsBindingObserver {
               });
       hideLoading();
     } catch (error) {
-      print(error);
+      debugPrint("$error");
     }
   }
 

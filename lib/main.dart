@@ -20,9 +20,9 @@ Future<void> initProject() async {
 
   // Check load environment follow flavor
   if (AppConfig.flavor == Flavor.development.name) {
-    await dotenv.load(fileName: ".env");
+    await dotenv.load(fileName: ".env_dev");
   } else {
-    await dotenv.load(fileName: ".env"); // add .enc_production
+    await dotenv.load(fileName: ".env_prd"); // add .enc_production
   }
 
   await GetStorage.init();
